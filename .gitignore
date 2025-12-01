@@ -61,6 +61,9 @@ Thumbs.db
 # Backend static (build artifacts copied from widget-loader)
 packages/backend/static/
 
+# Host site build artifacts (copied during predev)
+examples/host-site/*.js
+
 # Misc
 .cache/
 temp/

@@ -1,0 +1,13 @@
+{
+  "name": "host-site-example",
+  "version": "1.0.0",
+  "description": "Example host site demonstrating Kuzushi widget integration",
+  "scripts": {
+    "predev": "cp ../../packages/widget-loader/dist/widget-standalone.js ./widget-standalone.js",
+    "dev": "serve . -p 8080 --cors",
+    "build": "echo 'No build needed - static HTML'"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
