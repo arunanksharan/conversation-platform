@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://healthcare-conversation-platform.dev/schemas/euroscore-ii.json",
+  "title": "EuroSCORE II Clinical Risk Assessment",
+  "description": "European System for Cardiac Operative Risk Evaluation II - official clinical risk scoring system for cardiac surgery patients. Based on Nashef et al. (2012) European Journal of Cardio-Thoracic Surgery 41:734-745.",
+  "type": "object",
+  "required": [
+    "age",
+    "sex",
+    "urgency",
+    "weight_of_intervention"
+  ],
+  "properties": {
+    "age": {
+      "type": "integer",
+      "title": "Patient Age",
+      "description": "Age of patient in years at time of surgery",
+      "minimum": 18,
+      "maximum": 120,
+      "examples": [65, 72, 58],
+      "medicalTerms": ["age", "years old", "yo"]
+    },
+    "sex": {
+      "type": "string",
+      "title": "Biological Sex",
+      "description": "Biological sex of the patient",
+      "enum": ["male", "female"],
+      "examples": ["female"],
+      "medicalTerms": ["sex", "gender", "male", "female", "M", "F"]
+    },
+    "on_dialysis": {
+      "type": "boolean",
+      "title": "On Dialysis",
+      "description": "Patient currently receiving dialysis treatment for renal failure",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["dialysis", "hemodialysis", "peritoneal dialysis", "renal replacement therapy", "RRT"]
+    },
+    "creatinine_clearance": {
+      "type": "number",
+      "title": "Creatinine Clearance",
+      "description": "Creatinine clearance in ml/min. Used to assess renal function. Categories: >85 (normal), 50-85 (moderate impairment), <50 (severe impairment)",
+      "minimum": 0,
+      "maximum": 200,
+      "examples": [45.5, 75.0, 120.0],
+      "unit": "ml/min",
+      "medicalTerms": ["creatinine clearance", "CrCl", "GFR", "glomerular filtration rate", "renal function"]
+    },
+    "extracardiac_arteriopathy": {
+      "type": "boolean",
+      "title": "Extracardiac Arteriopathy",
+      "description": "Presence of extracardiac arteriopathy including claudication, carotid occlusion or >50% stenosis, previous or planned intervention on abdominal aorta, limb arteries or carotids",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["extracardiac arteriopathy", "peripheral vascular disease", "PVD", "claudication", "carotid stenosis", "PAD", "peripheral arterial disease"]
+    },
+    "poor_mobility": {
+      "type": "boolean",
+      "title": "Poor Mobility",
+      "description": "Severely impaired mobility due to musculoskeletal or neurological dysfunction",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["poor mobility", "impaired mobility", "wheelchair bound", "bedridden", "mobility issues"]
+    },
+    "previous_cardiac_surgery": {
+      "type": "boolean",
+      "title": "Previous Cardiac Surgery",
+      "description": "Patient has had previous cardiac surgery requiring opening of the pericardium",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["previous cardiac surgery", "prior cardiac surgery", "redo surgery", "reoperation", "previous CABG", "previous valve replacement"]
+    },
+    "chronic_lung_disease": {
+      "type": "boolean",
+      "title": "Chronic Lung Disease",
+      "description": "Long-term use of bronchodilators or steroids for lung disease",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["chronic lung disease", "COPD", "chronic obstructive pulmonary disease", "emphysema", "chronic bronchitis", "asthma", "lung disease"]
+    },
+    "active_endocarditis": {
+      "type": "boolean",
+      "title": "Active Endocarditis",
+      "description": "Patient still under antibiotic treatment for endocarditis at time of surgery",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["active endocarditis", "endocarditis", "infective endocarditis", "IE", "bacterial endocarditis"]
+    },
+    "critical_preop_state": {
+      "type": "boolean",
+      "title": "Critical Preoperative State",
+      "description": "Any one or more of: ventricular tachycardia or fibrillation or aborted sudden death, preoperative cardiac massage, preoperative ventilation, preoperative inotropes or IABP, preoperative acute renal failure",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["critical preoperative state", "critical state", "VT", "VF", "ventricular tachycardia", "ventricular fibrillation", "cardiac arrest", "IABP", "intra-aortic balloon pump", "preop ventilation", "acute renal failure"]
+    },
+    "diabetes_on_insulin": {
+      "type": "boolean",
+      "title": "Diabetes on Insulin",
+      "description": "Diabetes requiring insulin therapy",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["diabetes on insulin", "insulin-dependent diabetes", "IDDM", "type 1 diabetes", "diabetes requiring insulin"]
+    },
+    "nyha_class": {
+      "type": "string",
+      "title": "NYHA Functional Class",
+      "description": "New York Heart Association functional classification for heart failure symptoms. Class I (asymptomatic), II (slight limitation), III (marked limitation), IV (symptoms at rest)",
+      "enum": ["I", "II", "III", "IV"],
+      "examples": ["III", "II", "IV"],
+      "medicalTerms": ["NYHA", "NYHA class", "New York Heart Association", "heart failure class", "functional class"]
+    },
+    "ccs_class": {
+      "type": "string",
+      "title": "CCS Angina Class",
+      "description": "Canadian Cardiovascular Society angina classification. Only Class IV (inability to perform any activity without angina) is scored in EuroSCORE II",
+      "enum": ["I", "II", "III", "IV"],
+      "examples": ["IV", "III"],
+      "medicalTerms": ["CCS", "CCS class", "Canadian Cardiovascular Society", "angina class", "angina severity"]
+    },
+    "lvef_category": {
+      "type": "string",
+      "title": "Left Ventricular Ejection Fraction Category",
+      "description": "LVEF as percentage. Categories: >50% (normal), 31-50% (moderate), 21-30% (poor), ≤20% (very poor)",
+      "enum": [">50", "31-50", "21-30", "<=20"],
+      "examples": ["31-50", ">50", "21-30"],
+      "medicalTerms": ["LVEF", "left ventricular ejection fraction", "ejection fraction", "EF", "systolic function", "LV function"]
+    },
+    "recent_mi": {
+      "type": "boolean",
+      "title": "Recent Myocardial Infarction",
+      "description": "Myocardial infarction within 90 days prior to surgery",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["recent MI", "myocardial infarction", "heart attack", "recent heart attack", "MI within 90 days", "acute MI"]
+    },
+    "pa_systolic_pressure": {
+      "type": "number",
+      "title": "Pulmonary Artery Systolic Pressure",
+      "description": "Pulmonary artery systolic pressure in mmHg. Categories: ≤30 (normal), 31-55 (moderate pulmonary hypertension), >55 (severe pulmonary hypertension)",
+      "minimum": 0,
+      "maximum": 150,
+      "examples": [40.0, 60.0, 25.0],
+      "unit": "mmHg",
+      "medicalTerms": ["PA pressure", "pulmonary artery pressure", "pulmonary hypertension", "PAH", "PASP", "systolic PA pressure"]
+    },
+    "urgency": {
+      "type": "string",
+      "title": "Surgical Urgency",
+      "description": "Urgency of the operation. Elective (planned admission), Urgent (not elective but not emergency), Emergency (immediate surgery required), Salvage (CPR en route to OR)",
+      "enum": ["elective", "urgent", "emergency", "salvage"],
+      "examples": ["urgent", "elective", "emergency"],
+      "medicalTerms": ["urgency", "surgical urgency", "elective", "urgent", "emergency", "salvage", "timing of surgery"]
+    },
+    "weight_of_intervention": {
+      "type": "string",
+      "title": "Weight of Intervention",
+      "description": "Complexity of the surgical procedure. Isolated CABG (CABG only), Single non-CABG (single valve or other), Two procedures (CABG + one other), Three procedures (CABG + two others or three non-CABG)",
+      "enum": ["isolated_cabg", "single_non_cabg", "two_procedures", "three_procedures"],
+      "examples": ["isolated_cabg", "single_non_cabg", "two_procedures"],
+      "medicalTerms": ["weight of intervention", "surgical complexity", "procedure type", "CABG", "coronary artery bypass graft", "valve surgery", "combined procedures"]
+    },
+    "surgery_on_thoracic_aorta": {
+      "type": "boolean",
+      "title": "Surgery on Thoracic Aorta",
+      "description": "Surgery involves ascending, arch, or descending aorta",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["thoracic aorta surgery", "aortic surgery", "ascending aorta", "aortic arch", "descending aorta", "aortic aneurysm", "aortic dissection"]
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "published": "2012",
+    "citation": "Nashef SAM, Roques F, Sharples LD, et al. EuroSCORE II. Eur J Cardiothorac Surg. 2012;41(4):734-745.",
+    "validationDataset": {
+      "n": 22381,
+      "mortality": 0.0396,
+      "cStatistic": 0.8095
+    }
+  }
+}

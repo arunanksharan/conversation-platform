@@ -1,0 +1,944 @@
+{
+  "url": "https://research.sts.org/primarymrcalc/",
+  "title": "Primary MR Risk Calculator",
+  "total_fields": 79,
+  "fields": [
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "age",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 18.0,
+      "max": 110.0
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "height",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 125.0,
+      "max": 225.0
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "weight",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 35.0,
+      "max": 250.0
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "ifemale",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "ifemale",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "race",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "race",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "race",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "race",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "race",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "hispanic",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "hispanic",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "smoker",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "smoker",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "smoker",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "diabetes",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "diabetes",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "diabetes",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "diabetes",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "diabetes",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_lung_disease",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_lung_disease",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_lung_disease",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_lung_disease",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "imedbeta",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "imedadp5days",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "imedster",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "ihypertn",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "ihmo2",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "icvdnotiacva",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "idialysis",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "iliverdis",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "iivdrugab",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "ialcohol2to7",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "iimmsupp",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "hemocrit",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 5.0,
+      "max": 80.0,
+      "step": 0.1
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "white_blood_cell",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 0.0,
+      "max": 100000.0,
+      "step": 100.0
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "platelet_count",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 0.0,
+      "max": 600000.0,
+      "step": 10000.0
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "creatinine",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 0.1,
+      "max": 20.0,
+      "step": 0.1
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "ef",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 10.0,
+      "max": 90.0
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "reopany",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_heart_failure",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_heart_failure",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_heart_failure",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "chronic_heart_failure",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "statuseq2",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "statuseq2",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "afib",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "afib",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "afib",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "tricusp",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "tricusp",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "tricusp",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "Mitral_lesion",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "Mitral_lesion",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "radio",
+      "name": "Mitral_lesion",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "radio",
+      "name": "ifemale",
+      "options": [
+        {
+          "value": "0",
+          "label": "0",
+          "default": false
+        },
+        {
+          "value": "1",
+          "label": "1",
+          "default": false
+        }
+      ],
+      "enum": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "race",
+      "options": [
+        {
+          "value": "White",
+          "label": "White",
+          "default": false
+        },
+        {
+          "value": "Black",
+          "label": "Black",
+          "default": false
+        },
+        {
+          "value": "Asian",
+          "label": "Asian",
+          "default": false
+        },
+        {
+          "value": "Native American",
+          "label": "Native American",
+          "default": false
+        },
+        {
+          "value": "Other",
+          "label": "Other",
+          "default": false
+        }
+      ],
+      "enum": [
+        "White",
+        "Black",
+        "Asian",
+        "Native American",
+        "Other"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "hispanic",
+      "options": [
+        {
+          "value": "0",
+          "label": "0",
+          "default": false
+        },
+        {
+          "value": "1",
+          "label": "1",
+          "default": false
+        }
+      ],
+      "enum": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "smoker",
+      "options": [
+        {
+          "value": "Never Smoker",
+          "label": "Never Smoker",
+          "default": false
+        },
+        {
+          "value": "Previous Smoker",
+          "label": "Previous Smoker",
+          "default": false
+        },
+        {
+          "value": "Current Smoker",
+          "label": "Current Smoker",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Never Smoker",
+        "Previous Smoker",
+        "Current Smoker"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "diabetes",
+      "options": [
+        {
+          "value": "No",
+          "label": "No",
+          "default": false
+        },
+        {
+          "value": "Diabetes - Insulin",
+          "label": "Diabetes - Insulin",
+          "default": false
+        },
+        {
+          "value": "Diabetes - Oral",
+          "label": "Diabetes - Oral",
+          "default": false
+        },
+        {
+          "value": "Diabetes - Other Control",
+          "label": "Diabetes - Other Control",
+          "default": false
+        },
+        {
+          "value": "Diabetes - No Control",
+          "label": "Diabetes - No Control",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No",
+        "Diabetes - Insulin",
+        "Diabetes - Oral",
+        "Diabetes - Other Control",
+        "Diabetes - No Control"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "chronic_lung_disease",
+      "options": [
+        {
+          "value": "No",
+          "label": "No",
+          "default": false
+        },
+        {
+          "value": "Mild",
+          "label": "Mild",
+          "default": false
+        },
+        {
+          "value": "Moderate",
+          "label": "Moderate",
+          "default": false
+        },
+        {
+          "value": "Severe",
+          "label": "Severe",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No",
+        "Mild",
+        "Moderate",
+        "Severe"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "chronic_heart_failure",
+      "options": [
+        {
+          "value": "No Failure",
+          "label": "No Failure",
+          "default": false
+        },
+        {
+          "value": "Remote CHF",
+          "label": "Remote CHF",
+          "default": false
+        },
+        {
+          "value": "NYHA Class III",
+          "label": "NYHA Class III",
+          "default": false
+        },
+        {
+          "value": "NYHA Class IV",
+          "label": "NYHA Class IV",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No Failure",
+        "Remote CHF",
+        "NYHA Class III",
+        "NYHA Class IV"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "statuseq2",
+      "options": [
+        {
+          "value": "0",
+          "label": "0",
+          "default": false
+        },
+        {
+          "value": "1",
+          "label": "1",
+          "default": false
+        }
+      ],
+      "enum": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "afib",
+      "options": [
+        {
+          "value": "None",
+          "label": "None",
+          "default": false
+        },
+        {
+          "value": "Recent AF",
+          "label": "Recent AF",
+          "default": false
+        },
+        {
+          "value": "Remote AF",
+          "label": "Remote AF",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Recent AF",
+        "Remote AF"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "tricusp",
+      "options": [
+        {
+          "value": "No/Mild insufficiency",
+          "label": "No/Mild insufficiency",
+          "default": false
+        },
+        {
+          "value": "Moderate insufficiency",
+          "label": "Moderate insufficiency",
+          "default": false
+        },
+        {
+          "value": "Severe insufficiency",
+          "label": "Severe insufficiency",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No/Mild insufficiency",
+        "Moderate insufficiency",
+        "Severe insufficiency"
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "Mitral_lesion",
+      "options": [
+        {
+          "value": "0",
+          "label": "0",
+          "default": false
+        },
+        {
+          "value": "1",
+          "label": "1",
+          "default": false
+        },
+        {
+          "value": "2",
+          "label": "2",
+          "default": false
+        }
+      ],
+      "enum": [
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "imedbeta",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "imedadp5days",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "imedster",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "ihypertn",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "ihmo2",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "icvdnotiacva",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "idialysis",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "iliverdis",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "iivdrugab",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "ialcohol2to7",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "iimmsupp",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "reopany",
+      "label": null,
+      "required": false,
+      "default": false
+    }
+  ],
+  "categories": {}
+}

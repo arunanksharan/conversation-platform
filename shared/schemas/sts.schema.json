@@ -1,0 +1,649 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://healthcare-conversation-platform.dev/schemas/sts-risk.json",
+  "title": "STS Adult Cardiac Surgery Risk Calculator",
+  "description": "Society of Thoracic Surgeons (STS) Adult Cardiac Surgery Database risk model for predicting operative mortality and morbidity. Schema updated with live field extraction from https://acsdriskcalc.research.sts.org/",
+  "type": "object",
+  "required": [
+    "age",
+    "gender",
+    "height_cm",
+    "weight_kg",
+    "procedure_type"
+  ],
+  "properties": {
+    "age": {
+      "type": "integer",
+      "title": "Patient Age",
+      "description": "Age in years",
+      "minimum": 1,
+      "maximum": 110,
+      "examples": [68, 55, 72],
+      "medicalTerms": ["age", "years old", "yo"],
+      "fieldId": "ageN"
+    },
+    "gender": {
+      "type": "string",
+      "title": "Gender",
+      "description": "Biological sex",
+      "enum": ["Male", "Female"],
+      "examples": ["Male", "Female"],
+      "medicalTerms": ["gender", "sex", "male", "female", "M", "F"],
+      "fieldId": "gender"
+    },
+    "height_cm": {
+      "type": "number",
+      "title": "Height",
+      "description": "Height in centimeters",
+      "minimum": 20,
+      "maximum": 251,
+      "examples": [170.5, 165.0, 182.0],
+      "unit": "cm",
+      "medicalTerms": ["height", "cm", "centimeters"],
+      "fieldId": "heightN"
+    },
+    "weight_kg": {
+      "type": "number",
+      "title": "Weight",
+      "description": "Weight in kilograms",
+      "minimum": 10,
+      "maximum": 250,
+      "examples": [75.5, 68.0, 92.0],
+      "unit": "kg",
+      "medicalTerms": ["weight", "kg", "kilograms", "body weight"],
+      "fieldId": "weightN"
+    },
+    "race": {
+      "type": "array",
+      "title": "Race",
+      "description": "Patient race/ethnicity (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "White",
+          "Black/African American",
+          "Asian",
+          "Am Indian/Alaskan",
+          "Hawaiian/Pacific Islander",
+          "Hispanic",
+          "Other"
+        ]
+      },
+      "examples": [["White"], ["Black/African American"], ["Asian", "Hispanic"]],
+      "medicalTerms": ["race", "ethnicity"],
+      "fieldId": "racemulti"
+    },
+    "procedure_type": {
+      "type": "array",
+      "title": "Procedure Type",
+      "description": "Primary cardiac surgical procedure (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Isolated CABG",
+          "Isolated AVR",
+          "Isolated MVR",
+          "AVR + CABG",
+          "MVR + CABG",
+          "MV Repair",
+          "Isolated Primary MR Repair",
+          "MV Repair + CABG"
+        ]
+      },
+      "examples": [["Isolated CABG"], ["Isolated AVR"], ["AVR + CABG"]],
+      "medicalTerms": ["procedure", "surgery type", "CABG", "AVR", "MVR", "valve surgery"],
+      "fieldId": "Proc"
+    },
+    "surgery_incidence": {
+      "type": "array",
+      "title": "Surgery Incidence",
+      "description": "First surgery or reoperation (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "First CV surgery",
+          "ReOp#1 CV surgery",
+          "ReOp#2 CV surgery",
+          "ReOp#3 CV surgery",
+          "ReOp≥4 CV surgery"
+        ]
+      },
+      "examples": [["First CV surgery"], ["ReOp#1 CV surgery"]],
+      "medicalTerms": ["first surgery", "reoperation", "reop", "previous cardiac surgery"],
+      "fieldId": "incidenc"
+    },
+    "status": {
+      "type": "array",
+      "title": "Patient Status",
+      "description": "Clinical status at time of surgery (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Elective",
+          "Urgent",
+          "Emergent",
+          "Emergent Salvage"
+        ]
+      },
+      "examples": [["Elective"], ["Urgent"]],
+      "medicalTerms": ["status", "urgency", "elective", "urgent", "emergent", "salvage"],
+      "fieldId": "status"
+    },
+    "payor": {
+      "type": "array",
+      "title": "Payor/Insurance",
+      "description": "Insurance type (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None / self",
+          "Medicare (any type)",
+          "Medicaid (any type)",
+          "Commercial",
+          "HMO",
+          "Military",
+          "Non-U.S. Plan",
+          "Other"
+        ]
+      },
+      "examples": [["Medicare (any type)"], ["Commercial"]],
+      "medicalTerms": ["insurance", "payor", "Medicare", "Medicaid"],
+      "fieldId": "payordata"
+    },
+    "diabetes": {
+      "type": "array",
+      "title": "Diabetes",
+      "description": "Diabetes status (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "No",
+          "Yes, Diet Only",
+          "Yes, Oral",
+          "Yes, Insulin",
+          "Yes, Other SubQ",
+          "Yes, Other Control",
+          "Yes, No Control Method",
+          "Yes, Unknown Control",
+          "Unknown"
+        ]
+      },
+      "default": ["No"],
+      "examples": [["Yes, Insulin"], ["Yes, Oral"], ["No"]],
+      "medicalTerms": ["diabetes", "DM", "diabetes mellitus", "diabetic"],
+      "fieldId": "diabetes"
+    },
+    "endocarditis": {
+      "type": "array",
+      "title": "Endocarditis",
+      "description": "Active or treated endocarditis (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "No",
+          "Yes, treated",
+          "Yes, active",
+          "Yes, unknown"
+        ]
+      },
+      "default": ["No"],
+      "examples": [["Yes, active"], ["No"]],
+      "medicalTerms": ["endocarditis", "IE", "infective endocarditis"],
+      "fieldId": "endocarditis"
+    },
+    "iv_drug_abuse": {
+      "type": "array",
+      "title": "IV Drug Abuse",
+      "description": "History of intravenous drug abuse (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "No",
+          "Yes",
+          "Unknown"
+        ]
+      },
+      "default": ["No"],
+      "examples": [["No"], ["Yes"]],
+      "medicalTerms": ["IV drug abuse", "IVDA", "intravenous drug use"],
+      "fieldId": "ivdrugab"
+    },
+    "alcohol": {
+      "type": "array",
+      "title": "Alcohol Use",
+      "description": "Alcohol consumption (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None",
+          "≤ 1 drink/week",
+          "2-7 drinks/week",
+          "≥ 8 drinks/week",
+          "Unknown"
+        ]
+      },
+      "examples": [["None"], ["2-7 drinks/week"]],
+      "medicalTerms": ["alcohol", "drinking", "alcohol use"],
+      "fieldId": "alcohol"
+    },
+    "tobacco": {
+      "type": "array",
+      "title": "Tobacco Use",
+      "description": "Smoking status (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Never smoker",
+          "Current smoker",
+          "Former smoker",
+          "Smoking status unknown"
+        ]
+      },
+      "examples": [["Current smoker"], ["Former smoker"], ["Never smoker"]],
+      "medicalTerms": ["smoking", "tobacco", "smoker", "cigarettes"],
+      "fieldId": "tobaccouse"
+    },
+    "chronic_lung_disease": {
+      "type": "array",
+      "title": "Chronic Lung Disease",
+      "description": "Severity of chronic lung disease (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "No",
+          "Mild",
+          "Moderate",
+          "Severe",
+          "Severity Unknown",
+          "Unknown"
+        ]
+      },
+      "default": ["No"],
+      "examples": [["Moderate"], ["No"]],
+      "medicalTerms": ["COPD", "chronic lung disease", "emphysema", "chronic bronchitis"],
+      "fieldId": "chrlungd"
+    },
+    "cerebrovascular_disease": {
+      "type": "array",
+      "title": "Cerebrovascular Disease",
+      "description": "History of cerebrovascular disease (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "No",
+          "CVA ≤ 30 days",
+          "CVA > 30 days",
+          "CVA timing unk",
+          "TIA",
+          "Other CVD"
+        ]
+      },
+      "default": ["No"],
+      "examples": [["CVA > 30 days"], ["No"], ["TIA"]],
+      "medicalTerms": ["CVA", "stroke", "TIA", "cerebrovascular accident", "transient ischemic attack"],
+      "fieldId": "cvd"
+    },
+    "heart_failure": {
+      "type": "array",
+      "title": "Heart Failure",
+      "description": "Heart failure timing (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Yes - Acute",
+          "Yes - Chronic",
+          "Yes - Both"
+        ]
+      },
+      "default": ["None"],
+      "examples": [["Yes - Acute"], ["None"]],
+      "medicalTerms": ["heart failure", "HF", "CHF", "congestive heart failure"],
+      "fieldId": "heartfailtmg"
+    },
+    "nyha_class": {
+      "type": "array",
+      "title": "NYHA Class",
+      "description": "New York Heart Association functional classification (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Class I",
+          "Class II",
+          "Class III",
+          "Class IV"
+        ]
+      },
+      "examples": [["Class II"], ["Class III"]],
+      "medicalTerms": ["NYHA", "NYHA class", "functional class"],
+      "fieldId": "classnyh"
+    },
+    "mechanical_circulatory_support": {
+      "type": "array",
+      "title": "Mechanical Circulatory Support",
+      "description": "MCS device in place preoperatively (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Catheter based assist device",
+          "ECMO (any)",
+          "IABP",
+          "Other"
+        ]
+      },
+      "examples": [["IABP"], ["ECMO (any)"]],
+      "medicalTerms": ["MCS", "IABP", "ECMO", "mechanical support", "balloon pump"],
+      "fieldId": "mcs"
+    },
+    "cardiac_symptoms": {
+      "type": "array",
+      "title": "Cardiac Symptoms at Admission",
+      "description": "Coronary symptoms at time of admission (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "No coronary symptoms",
+          "Stable Angina",
+          "Unstable Angina",
+          "Non-ST Elevation MI",
+          "STEMI",
+          "Angina equivalent",
+          "Other"
+        ]
+      },
+      "examples": [["Unstable Angina"], ["STEMI"], ["No coronary symptoms"]],
+      "medicalTerms": ["angina", "chest pain", "MI", "STEMI", "NSTEMI"],
+      "fieldId": "cardsymptimeofadm"
+    },
+    "mi_timing": {
+      "type": "array",
+      "title": "MI Timing",
+      "description": "Timing of most recent myocardial infarction (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "No MI",
+          "≤ 6 Hrs",
+          ">6 Hrs but <24 Hrs",
+          "1 to 7 Days",
+          "8 to 21 Days",
+          "> 21 Days",
+          "Unknown time",
+          "Unknown"
+        ]
+      },
+      "default": ["No MI"],
+      "examples": [["1 to 7 Days"], ["No MI"]],
+      "medicalTerms": ["MI", "myocardial infarction", "heart attack", "recent MI", "acute MI"],
+      "fieldId": "miwhen"
+    },
+    "number_diseased_vessels": {
+      "type": "array",
+      "title": "Number of Diseased Vessels",
+      "description": "Number of coronary vessels with significant stenosis (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None",
+          "One",
+          "Two",
+          "Three"
+        ]
+      },
+      "examples": [["Three"], ["Two"], ["One"]],
+      "medicalTerms": ["diseased vessels", "vessel disease", "coronary disease", "CAD"],
+      "fieldId": "numdisv"
+    },
+    "aortic_insufficiency": {
+      "type": "array",
+      "title": "Aortic Insufficiency",
+      "description": "Aortic valve insufficiency/regurgitation (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Trivial/Trace",
+          "Mild",
+          "Moderate",
+          "Severe",
+          "Unknown"
+        ]
+      },
+      "examples": [["Severe"], ["Moderate"], ["None"]],
+      "medicalTerms": ["aortic insufficiency", "AI", "aortic regurgitation", "AR"],
+      "fieldId": "vdinsufa"
+    },
+    "mitral_insufficiency": {
+      "type": "array",
+      "title": "Mitral Insufficiency",
+      "description": "Mitral valve insufficiency/regurgitation (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Trivial/Trace",
+          "Mild",
+          "Moderate",
+          "Severe",
+          "Unknown"
+        ]
+      },
+      "examples": [["Severe"], ["Moderate"], ["None"]],
+      "medicalTerms": ["mitral insufficiency", "MI", "mitral regurgitation", "MR"],
+      "fieldId": "vdinsufm"
+    },
+    "tricuspid_insufficiency": {
+      "type": "array",
+      "title": "Tricuspid Insufficiency",
+      "description": "Tricuspid valve insufficiency/regurgitation (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Trivial/Trace",
+          "Mild",
+          "Moderate",
+          "Severe",
+          "Unknown"
+        ]
+      },
+      "examples": [["Moderate"], ["Mild"], ["None"]],
+      "medicalTerms": ["tricuspid insufficiency", "TI", "tricuspid regurgitation", "TR"],
+      "fieldId": "vdinsuft"
+    },
+    "atrial_fibrillation": {
+      "type": "array",
+      "title": "Atrial Fibrillation/Flutter History",
+      "description": "History of atrial fibrillation or flutter (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Remote",
+          "Recent"
+        ]
+      },
+      "default": ["None"],
+      "examples": [["Recent"], ["None"]],
+      "medicalTerms": ["atrial fibrillation", "AFib", "AF", "atrial flutter"],
+      "fieldId": "arrhythatrfib"
+    },
+    "atrial_fibrillation_type": {
+      "type": "array",
+      "title": "Atrial Fibrillation Type",
+      "description": "Type of atrial fibrillation (multi-select)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Paroxysmal",
+          "Persistent",
+          "Unknown"
+        ]
+      },
+      "examples": [["Persistent"], ["Paroxysmal"]],
+      "medicalTerms": ["paroxysmal AFib", "persistent AFib"],
+      "fieldId": "arrhythafib"
+    },
+    "creatinine": {
+      "type": "number",
+      "title": "Serum Creatinine",
+      "description": "Most recent preoperative serum creatinine in mg/dL",
+      "minimum": 0.1,
+      "maximum": 30.0,
+      "examples": [1.2, 2.5, 0.9],
+      "unit": "mg/dL",
+      "medicalTerms": ["creatinine", "Cr", "serum creatinine"],
+      "fieldId": "creatlstN"
+    },
+    "hematocrit": {
+      "type": "number",
+      "title": "Hematocrit",
+      "description": "Most recent hematocrit percentage",
+      "minimum": 1.0,
+      "maximum": 99.99,
+      "examples": [38.5, 42.0, 35.0],
+      "unit": "%",
+      "medicalTerms": ["hematocrit", "HCT", "Hct"],
+      "fieldId": "hctN"
+    },
+    "wbc": {
+      "type": "number",
+      "title": "White Blood Cell Count",
+      "description": "WBC count in thousands/μL",
+      "minimum": 0.1,
+      "maximum": 99.99,
+      "examples": [8.5, 12.0, 6.2],
+      "unit": "K/μL",
+      "medicalTerms": ["WBC", "white blood cell", "leukocyte count"],
+      "fieldId": "wbcN"
+    },
+    "platelets": {
+      "type": "number",
+      "title": "Platelet Count",
+      "description": "Platelet count in thousands/μL",
+      "minimum": 1000,
+      "maximum": 900000,
+      "examples": [250000, 180000, 350000],
+      "unit": "/μL",
+      "medicalTerms": ["platelets", "platelet count", "PLT"],
+      "fieldId": "plateletsN"
+    },
+    "ejection_fraction": {
+      "type": "number",
+      "title": "Left Ventricular Ejection Fraction",
+      "description": "LVEF as percentage",
+      "minimum": 1,
+      "maximum": 99,
+      "examples": [55, 35, 45],
+      "unit": "%",
+      "medicalTerms": ["LVEF", "ejection fraction", "EF", "LV function"],
+      "fieldId": "hdef"
+    },
+    "hypertension": {
+      "type": "boolean",
+      "title": "Hypertension",
+      "description": "History of hypertension",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["hypertension", "HTN", "high blood pressure"],
+      "fieldId": "hypertn"
+    },
+    "dialysis": {
+      "type": "boolean",
+      "title": "Dialysis",
+      "description": "Patient on dialysis",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["dialysis", "hemodialysis", "peritoneal dialysis", "renal replacement"],
+      "fieldId": "dialysis"
+    },
+    "pvd": {
+      "type": "boolean",
+      "title": "Peripheral Vascular Disease",
+      "description": "Presence of peripheral vascular disease",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["PVD", "peripheral vascular disease", "peripheral arterial disease", "PAD"],
+      "fieldId": "pvd"
+    },
+    "immunosuppressive_treatment": {
+      "type": "boolean",
+      "title": "Immunosuppressive Treatment",
+      "description": "Current immunosuppressive therapy",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["immunosuppressive", "immunosuppression", "steroids", "chemotherapy"],
+      "fieldId": "immsupp"
+    },
+    "liver_disease": {
+      "type": "boolean",
+      "title": "Liver Disease",
+      "description": "History of liver disease",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["liver disease", "cirrhosis", "hepatitis"],
+      "fieldId": "liverdis"
+    },
+    "cancer": {
+      "type": "boolean",
+      "title": "Cancer",
+      "description": "History of cancer",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["cancer", "malignancy", "neoplasm"],
+      "fieldId": "cancer"
+    },
+    "cardiogenic_shock": {
+      "type": "boolean",
+      "title": "Cardiogenic Shock",
+      "description": "Cardiogenic shock at time of surgery",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["cardiogenic shock", "shock", "hemodynamic collapse"],
+      "fieldId": "carshock"
+    },
+    "resuscitation": {
+      "type": "boolean",
+      "title": "Resuscitation",
+      "description": "Cardiac resuscitation required",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["resuscitation", "CPR", "cardiac arrest", "code"],
+      "fieldId": "resusc"
+    },
+    "left_main_stenosis": {
+      "type": "boolean",
+      "title": "Left Main Stenosis",
+      "description": "Stenosis of left main coronary artery ≥50%",
+      "default": false,
+      "examples": [false, true],
+      "medicalTerms": ["left main", "LMCA", "left main disease", "left main stenosis"],
+      "fieldId": "stenleftmain"
+    }
+  },
+  "metadata": {
+    "version": "2025",
+    "extractionDate": "November 19, 2025",
+    "source": "STS Adult Cardiac Surgery Database",
+    "organization": "Society of Thoracic Surgeons",
+    "website": "https://acsdriskcalc.research.sts.org/",
+    "extractionMethod": "Live field extraction using Playwright",
+    "totalFieldsExtracted": 110,
+    "models": [
+      "operative_mortality",
+      "morbidity_mortality",
+      "prolonged_ventilation",
+      "deep_sternal_wound_infection",
+      "renal_failure",
+      "stroke",
+      "reoperation",
+      "long_length_of_stay"
+    ],
+    "notes": [
+      "All enum values match EXACTLY the options from the live STS calculator",
+      "Field IDs correspond to actual HTML form field IDs",
+      "Some fields are multi-select arrays (race, procedure_type, etc.)",
+      "Use fieldId for mapping extracted values to form fields during automation"
+    ]
+  }
+}

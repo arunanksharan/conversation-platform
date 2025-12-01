@@ -1,0 +1,2316 @@
+{
+  "url": "https://acsdriskcalc.research.sts.org/",
+  "title": "STS ACSD Operative Risk Calculator",
+  "total_fields": 110,
+  "fields": [
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "vstrpr",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "ageN",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 1.0,
+      "max": 110.0
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "heightN",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 20.0,
+      "max": 251.0
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "weightN",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 10.0,
+      "max": 250.0
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "BMI",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "creatlstN",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 0.1,
+      "max": 30.0,
+      "step": 0.1
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "hctN",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 1.0,
+      "max": 99.99,
+      "step": 0.1
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "wbcN",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 0.1,
+      "max": 99.99,
+      "step": 0.1
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "plateletsN",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 1000.0,
+      "max": 900000.0,
+      "step": 1000.0
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "medacei48",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "medgp",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "medinotr",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "medster",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "medadp5days",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "medadpidis",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 0.0,
+      "max": 5.0
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "fhcad",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "hypertn",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "liverdis",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "mediastrad",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "unrespstat",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "dialysis",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "cancer",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "syncope",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "immsupp",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "pneumonia",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "slpapn",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "hmo2",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "pvd",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "cvdstenrt",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "cvdpcarsurg",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "cvdstenlft",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "number",
+      "name": null,
+      "id": "hdef",
+      "label": null,
+      "placeholder": null,
+      "required": false,
+      "min": 1.0,
+      "max": 99.0
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "carshock",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "resusc",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "stenleftmain",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "laddiststenpercent",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "vdstena",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "vdstenm",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": null,
+      "id": "vdaoprimet",
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": "prcvint",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": "prcvint",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": "prcvint",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "checkbox",
+      "name": "prcvint",
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "search",
+      "name": null,
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "input",
+      "input_type": "search",
+      "name": null,
+      "id": null,
+      "label": null,
+      "placeholder": null,
+      "required": false
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "Proc",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Isolated CABG",
+          "text": "Isolated CABG",
+          "default": false
+        },
+        {
+          "value": "Isolated AVR",
+          "text": "Isolated AVR",
+          "default": false
+        },
+        {
+          "value": "Isolated MVR",
+          "text": "Isolated MVR",
+          "default": false
+        },
+        {
+          "value": "AVR + CABG",
+          "text": "AVR + CABG",
+          "default": false
+        },
+        {
+          "value": "MVR + CABG",
+          "text": "MVR + CABG",
+          "default": false
+        },
+        {
+          "value": "MV Repair",
+          "text": "MV Repair - Any Etiology",
+          "default": false
+        },
+        {
+          "value": "Isolated Primary MR Repair",
+          "text": "MV Repair for Primary MR",
+          "default": false
+        },
+        {
+          "value": "MV Repair + CABG",
+          "text": "MV Repair + CABG",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Isolated CABG",
+        "Isolated AVR",
+        "Isolated MVR",
+        "AVR + CABG",
+        "MVR + CABG",
+        "MV Repair",
+        "Isolated Primary MR Repair",
+        "MV Repair + CABG"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "incidenc",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "First CV surgery",
+          "text": "First CV surgery",
+          "default": false
+        },
+        {
+          "value": "ReOp#1 CV surgery",
+          "text": "ReOp#1 CV surgery",
+          "default": false
+        },
+        {
+          "value": "ReOp#2 CV surgery",
+          "text": "ReOp#2 CV surgery",
+          "default": false
+        },
+        {
+          "value": "ReOp#3 CV surgery",
+          "text": "ReOp#3 CV surgery",
+          "default": false
+        },
+        {
+          "value": "ReOp\u22654 CV surgery",
+          "text": "ReOp\u22654 CV surgery",
+          "default": false
+        }
+      ],
+      "enum": [
+        "First CV surgery",
+        "ReOp#1 CV surgery",
+        "ReOp#2 CV surgery",
+        "ReOp#3 CV surgery",
+        "ReOp\u22654 CV surgery"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "status",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Elective",
+          "text": "Elective",
+          "default": false
+        },
+        {
+          "value": "Urgent",
+          "text": "Urgent",
+          "default": false
+        },
+        {
+          "value": "Emergent",
+          "text": "Emergent",
+          "default": false
+        },
+        {
+          "value": "Emergent Salvage",
+          "text": "Emergent Salvage",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Elective",
+        "Urgent",
+        "Emergent",
+        "Emergent Salvage"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "gender",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Male",
+          "text": "Male",
+          "default": false
+        },
+        {
+          "value": "Female",
+          "text": "Female",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Male",
+        "Female"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "racemulti",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "White",
+          "text": "White",
+          "default": false
+        },
+        {
+          "value": "Black/African American",
+          "text": "Black/African American",
+          "default": false
+        },
+        {
+          "value": "Asian",
+          "text": "Asian",
+          "default": false
+        },
+        {
+          "value": "Am Indian/Alaskan",
+          "text": "Am Indian/Alaskan",
+          "default": false
+        },
+        {
+          "value": "Hawaiian/Pacific Islander",
+          "text": "Hawaiian/Pacific Islander",
+          "default": false
+        },
+        {
+          "value": "Hispanic",
+          "text": "Hispanic",
+          "default": false
+        },
+        {
+          "value": "Other",
+          "text": "Other",
+          "default": false
+        }
+      ],
+      "enum": [
+        "White",
+        "Black/African American",
+        "Asian",
+        "Am Indian/Alaskan",
+        "Hawaiian/Pacific Islander",
+        "Hispanic",
+        "Other"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "payordata",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None / self",
+          "text": "None / self",
+          "default": false
+        },
+        {
+          "value": "Medicare (any type)",
+          "text": "Medicare (any type)",
+          "default": false
+        },
+        {
+          "value": "Medicaid (any type)",
+          "text": "Medicaid (any type)",
+          "default": false
+        },
+        {
+          "value": "Commercial",
+          "text": "Commercial",
+          "default": false
+        },
+        {
+          "value": "HMO",
+          "text": "HMO",
+          "default": false
+        },
+        {
+          "value": "Military",
+          "text": "Military",
+          "default": false
+        },
+        {
+          "value": "Non-U.S. Plan",
+          "text": "Non-U.S. Plan",
+          "default": false
+        },
+        {
+          "value": "Other",
+          "text": "Other",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None / self",
+        "Medicare (any type)",
+        "Medicaid (any type)",
+        "Commercial",
+        "HMO",
+        "Military",
+        "Non-U.S. Plan",
+        "Other"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "diabetes",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "No",
+          "text": "No",
+          "default": false
+        },
+        {
+          "value": "Yes, Diet Only",
+          "text": "Yes, Diet Only",
+          "default": false
+        },
+        {
+          "value": "Yes, Oral",
+          "text": "Yes, Oral",
+          "default": false
+        },
+        {
+          "value": "Yes, Insulin",
+          "text": "Yes, Insulin",
+          "default": false
+        },
+        {
+          "value": "Yes, Other SubQ",
+          "text": "Yes, Other SubQ",
+          "default": false
+        },
+        {
+          "value": "Yes, Other Control",
+          "text": "Yes, Other Control",
+          "default": false
+        },
+        {
+          "value": "Yes, No Control Method",
+          "text": "Yes, No Control Method",
+          "default": false
+        },
+        {
+          "value": "Yes, Unknown Control",
+          "text": "Yes, Unknown Control",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No",
+        "Yes, Diet Only",
+        "Yes, Oral",
+        "Yes, Insulin",
+        "Yes, Other SubQ",
+        "Yes, Other Control",
+        "Yes, No Control Method",
+        "Yes, Unknown Control",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "endocarditis",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "No",
+          "text": "No",
+          "default": false
+        },
+        {
+          "value": "Yes, treated",
+          "text": "Yes, treated",
+          "default": false
+        },
+        {
+          "value": "Yes, active",
+          "text": "Yes, active",
+          "default": false
+        },
+        {
+          "value": "Yes, unknown",
+          "text": "Yes, unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No",
+        "Yes, treated",
+        "Yes, active",
+        "Yes, unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "ivdrugab",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "No",
+          "text": "No",
+          "default": false
+        },
+        {
+          "value": "Yes",
+          "text": "Yes",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No",
+        "Yes",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "alcohol",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "\u2264 1 drink/week",
+          "text": "\u2264 1 drink/week",
+          "default": false
+        },
+        {
+          "value": "2-7 drinks/week",
+          "text": "2-7 drinks/week",
+          "default": false
+        },
+        {
+          "value": "\u2265 8 drinks/week",
+          "text": "\u2265 8 drinks/week",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "\u2264 1 drink/week",
+        "2-7 drinks/week",
+        "\u2265 8 drinks/week",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "tobaccouse",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Never smoker",
+          "text": "Never smoker",
+          "default": false
+        },
+        {
+          "value": "Current smoker",
+          "text": "Current smoker",
+          "default": false
+        },
+        {
+          "value": "Former smoker",
+          "text": "Former smoker",
+          "default": false
+        },
+        {
+          "value": "Smoking status unknown",
+          "text": "Smoking status unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Never smoker",
+        "Current smoker",
+        "Former smoker",
+        "Smoking status unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "chrlungd",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "No",
+          "text": "No",
+          "default": false
+        },
+        {
+          "value": "Mild",
+          "text": "Mild",
+          "default": false
+        },
+        {
+          "value": "Moderate",
+          "text": "Moderate",
+          "default": false
+        },
+        {
+          "value": "Severe",
+          "text": "Severe",
+          "default": false
+        },
+        {
+          "value": "Severity Unknown",
+          "text": "Severity Unknown",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No",
+        "Mild",
+        "Moderate",
+        "Severe",
+        "Severity Unknown",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "cvd",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "No",
+          "text": "No",
+          "default": false
+        },
+        {
+          "value": "CVA \u2264 30 days",
+          "text": "CVA \u2264 30 days",
+          "default": false
+        },
+        {
+          "value": "CVA > 30 days",
+          "text": "CVA > 30 days",
+          "default": false
+        },
+        {
+          "value": "CVA timing unk",
+          "text": "CVA timing unk",
+          "default": false
+        },
+        {
+          "value": "TIA",
+          "text": "TIA",
+          "default": false
+        },
+        {
+          "value": "Other CVD",
+          "text": "Other CVD",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No",
+        "CVA \u2264 30 days",
+        "CVA > 30 days",
+        "CVA timing unk",
+        "TIA",
+        "Other CVD"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "heartfailtmg",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Yes - Acute",
+          "text": "Yes - Acute",
+          "default": false
+        },
+        {
+          "value": "Yes - Chronic",
+          "text": "Yes - Chronic",
+          "default": false
+        },
+        {
+          "value": "Yes - Both",
+          "text": "Yes - Both",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Yes - Acute",
+        "Yes - Chronic",
+        "Yes - Both"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "classnyh",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Class I",
+          "text": "Class I",
+          "default": false
+        },
+        {
+          "value": "Class II",
+          "text": "Class II",
+          "default": false
+        },
+        {
+          "value": "Class III",
+          "text": "Class III",
+          "default": false
+        },
+        {
+          "value": "Class IV",
+          "text": "Class IV",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Class I",
+        "Class II",
+        "Class III",
+        "Class IV"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "mcs",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Catheter based assist device",
+          "text": "Catheter based assist device",
+          "default": false
+        },
+        {
+          "value": "ECMO (any)",
+          "text": "ECMO (any)",
+          "default": false
+        },
+        {
+          "value": "IABP",
+          "text": "IABP",
+          "default": false
+        },
+        {
+          "value": "Other",
+          "text": "Other",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Catheter based assist device",
+        "ECMO (any)",
+        "IABP",
+        "Other"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "cardsymptimeofadm",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "No coronary symptoms",
+          "text": "No coronary symptoms",
+          "default": false
+        },
+        {
+          "value": "Stable Angina",
+          "text": "Stable Angina",
+          "default": false
+        },
+        {
+          "value": "Unstable Angina",
+          "text": "Unstable Angina",
+          "default": false
+        },
+        {
+          "value": "Non-ST Elevation MI",
+          "text": "Non-ST Elevation MI",
+          "default": false
+        },
+        {
+          "value": "STEMI",
+          "text": "STEMI",
+          "default": false
+        },
+        {
+          "value": "Angina equivalent",
+          "text": "Angina equivalent",
+          "default": false
+        },
+        {
+          "value": "Other",
+          "text": "Other",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No coronary symptoms",
+        "Stable Angina",
+        "Unstable Angina",
+        "Non-ST Elevation MI",
+        "STEMI",
+        "Angina equivalent",
+        "Other"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "miwhen",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "No MI",
+          "text": "No MI",
+          "default": false
+        },
+        {
+          "value": "\u2264 6 Hrs",
+          "text": "\u2264 6 Hrs",
+          "default": false
+        },
+        {
+          "value": ">6 Hrs but <24 Hrs",
+          "text": ">6 Hrs but <24 Hrs",
+          "default": false
+        },
+        {
+          "value": "1 to 7 Days",
+          "text": "1 to 7 Days",
+          "default": false
+        },
+        {
+          "value": "8 to 21 Days",
+          "text": "8 to 21 Days",
+          "default": false
+        },
+        {
+          "value": "> 21 Days",
+          "text": "> 21 Days",
+          "default": false
+        },
+        {
+          "value": "Unknown time",
+          "text": "Unknown time",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "No MI",
+        "\u2264 6 Hrs",
+        ">6 Hrs but <24 Hrs",
+        "1 to 7 Days",
+        "8 to 21 Days",
+        "> 21 Days",
+        "Unknown time",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "numdisv",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "One",
+          "text": "One",
+          "default": false
+        },
+        {
+          "value": "Two",
+          "text": "Two",
+          "default": false
+        },
+        {
+          "value": "Three",
+          "text": "Three",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "One",
+        "Two",
+        "Three"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "vdinsufa",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Trivial/Trace",
+          "text": "Trivial/Trace",
+          "default": false
+        },
+        {
+          "value": "Mild",
+          "text": "Mild",
+          "default": false
+        },
+        {
+          "value": "Moderate",
+          "text": "Moderate",
+          "default": false
+        },
+        {
+          "value": "Severe",
+          "text": "Severe",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Trivial/Trace",
+        "Mild",
+        "Moderate",
+        "Severe",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "vdinsufm",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Trivial/Trace",
+          "text": "Trivial/Trace",
+          "default": false
+        },
+        {
+          "value": "Mild",
+          "text": "Mild",
+          "default": false
+        },
+        {
+          "value": "Moderate",
+          "text": "Moderate",
+          "default": false
+        },
+        {
+          "value": "Severe",
+          "text": "Severe",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Trivial/Trace",
+        "Mild",
+        "Moderate",
+        "Severe",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "vdinsuft",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Trivial/Trace",
+          "text": "Trivial/Trace",
+          "default": false
+        },
+        {
+          "value": "Mild",
+          "text": "Mild",
+          "default": false
+        },
+        {
+          "value": "Moderate",
+          "text": "Moderate",
+          "default": false
+        },
+        {
+          "value": "Severe",
+          "text": "Severe",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Trivial/Trace",
+        "Mild",
+        "Moderate",
+        "Severe",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "arrhythatrfib",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Remote",
+          "text": "Remote",
+          "default": false
+        },
+        {
+          "value": "Recent",
+          "text": "Recent",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Remote",
+        "Recent"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "arrhythafib",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Paroxysmal",
+          "text": "Paroxysmal",
+          "default": false
+        },
+        {
+          "value": "Persistent",
+          "text": "Persistent",
+          "default": false
+        },
+        {
+          "value": "Unknown",
+          "text": "Unknown",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Paroxysmal",
+        "Persistent",
+        "Unknown"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "arrhythaflutter",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Remote",
+          "text": "Remote",
+          "default": false
+        },
+        {
+          "value": "Recent",
+          "text": "Recent",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Remote",
+        "Recent"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "arrhythvv",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Remote",
+          "text": "Remote",
+          "default": false
+        },
+        {
+          "value": "Recent",
+          "text": "Recent",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Remote",
+        "Recent"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "arrhythsss",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Remote",
+          "text": "Remote",
+          "default": false
+        },
+        {
+          "value": "Recent",
+          "text": "Recent",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Remote",
+        "Recent"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "arrhythsecond",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Remote",
+          "text": "Remote",
+          "default": false
+        },
+        {
+          "value": "Recent",
+          "text": "Recent",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Remote",
+        "Recent"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "arrhyththird",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "None",
+          "text": "None",
+          "default": false
+        },
+        {
+          "value": "Remote",
+          "text": "Remote",
+          "default": false
+        },
+        {
+          "value": "Recent",
+          "text": "Recent",
+          "default": false
+        }
+      ],
+      "enum": [
+        "None",
+        "Remote",
+        "Recent"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "prvalveproc",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Aortic valve balloon valvotomy/valvuloplasty",
+          "text": "Aortic valve balloon valvotomy/valvuloplasty",
+          "default": false
+        },
+        {
+          "value": "Aortic valve repair, surgical",
+          "text": "Aortic valve repair, surgical (AVr)",
+          "default": false
+        },
+        {
+          "value": "Aortic valve replacement, surgical",
+          "text": "Aortic valve replacement, surgical (SAVR)",
+          "default": false
+        },
+        {
+          "value": "Mitral valve balloon valvotomy/valvuloplasty",
+          "text": "Mitral valve balloon valvotomy/valvuloplasty",
+          "default": false
+        },
+        {
+          "value": "Mitral valve commissurotomy, surgical",
+          "text": "Mitral valve commissurotomy, surgical",
+          "default": false
+        },
+        {
+          "value": "Mitral valve repair, surgical",
+          "text": "Mitral valve repair, surgical (MVr)",
+          "default": false
+        },
+        {
+          "value": "Mitral valve replacement, surgical",
+          "text": "Mitral valve replacement, surgical (MVR)",
+          "default": false
+        },
+        {
+          "value": "Tricuspid valve balloon valvotomy/valvuloplasty",
+          "text": "Tricuspid valve balloon valvotomy/valvuloplasty",
+          "default": false
+        },
+        {
+          "value": "Tricuspid valve repair, surgical",
+          "text": "Tricuspid valve repair, surgical (TVr)",
+          "default": false
+        },
+        {
+          "value": "Tricuspid valve replacement, surgical",
+          "text": "Tricuspid valve replacement, surgical (TVR)",
+          "default": false
+        },
+        {
+          "value": "Tricuspid valvectomy",
+          "text": "Tricuspid valvectomy",
+          "default": false
+        },
+        {
+          "value": "Pulmonary valve balloon valvotomy/valvuloplasty",
+          "text": "Pulmonary valve balloon valvotomy/valvuloplasty",
+          "default": false
+        },
+        {
+          "value": "Pulmonary valve repair, surgical",
+          "text": "Pulmonary valve repair, surgical",
+          "default": false
+        },
+        {
+          "value": "Pulmonary valve replacement, surgical",
+          "text": "Pulmonary valve replacement, surgical",
+          "default": false
+        },
+        {
+          "value": "Pulmonary valvectomy",
+          "text": "Pulmonary valvectomy",
+          "default": false
+        },
+        {
+          "value": "Other valve procedure",
+          "text": "Other valve procedure",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Aortic valve balloon valvotomy/valvuloplasty",
+        "Aortic valve repair, surgical",
+        "Aortic valve replacement, surgical",
+        "Mitral valve balloon valvotomy/valvuloplasty",
+        "Mitral valve commissurotomy, surgical",
+        "Mitral valve repair, surgical",
+        "Mitral valve replacement, surgical",
+        "Tricuspid valve balloon valvotomy/valvuloplasty",
+        "Tricuspid valve repair, surgical",
+        "Tricuspid valve replacement, surgical",
+        "Tricuspid valvectomy",
+        "Pulmonary valve balloon valvotomy/valvuloplasty",
+        "Pulmonary valve repair, surgical",
+        "Pulmonary valve replacement, surgical",
+        "Pulmonary valvectomy",
+        "Other valve procedure"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "pocpci",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "At this facility \u2264 6 hours",
+          "text": "At this facility \u2264 6 hours",
+          "default": false
+        },
+        {
+          "value": "At this facility > 6 hours",
+          "text": "At this facility > 6 hours",
+          "default": false
+        },
+        {
+          "value": "At this facility timing unknown",
+          "text": "At this facility timing unknown",
+          "default": false
+        },
+        {
+          "value": "Not at this facility \u2264 6 hours",
+          "text": "Not at this facility \u2264 6 hours",
+          "default": false
+        },
+        {
+          "value": "Not at this facility > 6 hours",
+          "text": "Not at this facility > 6 hours",
+          "default": false
+        },
+        {
+          "value": "Not at this facility timing unknown",
+          "text": "Not at this facility timing unknown",
+          "default": false
+        },
+        {
+          "value": "Not during this episode of care",
+          "text": "Not during this episode of care",
+          "default": false
+        }
+      ],
+      "enum": [
+        "At this facility \u2264 6 hours",
+        "At this facility > 6 hours",
+        "At this facility timing unknown",
+        "Not at this facility \u2264 6 hours",
+        "Not at this facility > 6 hours",
+        "Not at this facility timing unknown",
+        "Not during this episode of care"
+      ]
+    },
+    {
+      "type": "select",
+      "name": null,
+      "id": "pocint",
+      "label": null,
+      "required": false,
+      "multiple": true,
+      "options": [
+        {
+          "value": "Ablation, catheter, atrial arrhythmia",
+          "text": "Ablation, catheter, atrial arrhythmia",
+          "default": false
+        },
+        {
+          "value": "Ablation, catheter, other or unknown",
+          "text": "Ablation, catheter, other or unknown",
+          "default": false
+        },
+        {
+          "value": "Ablation, catheter, ventricular arrhythmia",
+          "text": "Ablation, catheter, ventricular arrhythmia",
+          "default": false
+        },
+        {
+          "value": "Ablation, surgical, atrial arrhythmia",
+          "text": "Ablation, surgical, atrial arrhythmia",
+          "default": false
+        },
+        {
+          "value": "Ablation, surgical, other or unknown",
+          "text": "Ablation, surgical, other or unknown",
+          "default": false
+        },
+        {
+          "value": "Aneurysmectomy, LV",
+          "text": "Aneurysmectomy, LV",
+          "default": false
+        },
+        {
+          "value": "Aortic procedure, arch",
+          "text": "Aortic procedure, arch",
+          "default": false
+        },
+        {
+          "value": "Aortic procedure, ascending",
+          "text": "Aortic procedure, ascending",
+          "default": false
+        },
+        {
+          "value": "Aortic procedure, descending",
+          "text": "Aortic procedure, descending",
+          "default": false
+        },
+        {
+          "value": "Aortic procedure, root",
+          "text": "Aortic procedure, root",
+          "default": false
+        },
+        {
+          "value": "Aortic procedure, thoracoabdominal",
+          "text": "Aortic procedure, thoracoabdominal",
+          "default": false
+        },
+        {
+          "value": "Aortic Procedure, TEVAR",
+          "text": "Aortic Procedure, TEVAR",
+          "default": false
+        },
+        {
+          "value": "Aortic root procedure, valve sparing",
+          "text": "Aortic root procedure, valve sparing",
+          "default": false
+        },
+        {
+          "value": "Atrial appendage obliteration, left, surgical",
+          "text": "Atrial appendage obliteration, left, surgical",
+          "default": false
+        },
+        {
+          "value": "Atrial appendage obliteration, left, transcatheter",
+          "text": "Atrial appendage obliteration, left, transcatheter",
+          "default": false
+        },
+        {
+          "value": "Cardiac Tumor",
+          "text": "Cardiac Tumor",
+          "default": false
+        },
+        {
+          "value": "Cardioversion(s)",
+          "text": "Cardioversion(s)",
+          "default": false
+        },
+        {
+          "value": "Closure device, atrial septal defect",
+          "text": "Closure device, atrial septal defect",
+          "default": false
+        },
+        {
+          "value": "Closure device, ventricular septal defect",
+          "text": "Closure device, ventricular septal defect",
+          "default": false
+        },
+        {
+          "value": "Congenital cardiac repair, surgical",
+          "text": "Congenital cardiac repair, surgical",
+          "default": false
+        },
+        {
+          "value": "ECMO",
+          "text": "ECMO",
+          "default": false
+        },
+        {
+          "value": "Myectomy (not congenital)",
+          "text": "Myectomy (not congenital)",
+          "default": false
+        },
+        {
+          "value": "Permanent Pacemaker",
+          "text": "Permanent Pacemaker",
+          "default": false
+        },
+        {
+          "value": "Pericardial window / Pericardiocentesis",
+          "text": "Pericardial window / Pericardiocentesis",
+          "default": false
+        },
+        {
+          "value": "Pericardiectomy",
+          "text": "Pericardiectomy",
+          "default": false
+        },
+        {
+          "value": "Implantable Cardioverter Defibrillator (ICD) with or without pacer",
+          "text": "Implantable Cardioverter Defibrillator (ICD) with or without pacer",
+          "default": false
+        },
+        {
+          "value": "Pulmonary Thromboembolectomy",
+          "text": "Pulmonary Thromboembolectomy",
+          "default": false
+        },
+        {
+          "value": "Total Artificial Heart (TAH)",
+          "text": "Total Artificial Heart (TAH)",
+          "default": false
+        },
+        {
+          "value": "Transmyocardial Laser Revascularization (TMR)",
+          "text": "Transmyocardial Laser Revascularization (TMR)",
+          "default": false
+        },
+        {
+          "value": "Transplant heart & lung",
+          "text": "Transplant heart & lung",
+          "default": false
+        },
+        {
+          "value": "Transplant, heart",
+          "text": "Transplant, heart",
+          "default": false
+        },
+        {
+          "value": "Transplant, lung(s)",
+          "text": "Transplant, lung(s)",
+          "default": false
+        },
+        {
+          "value": "Ventricular Assist Device (VAD), BiVAD",
+          "text": "Ventricular Assist Device (VAD), BiVAD",
+          "default": false
+        },
+        {
+          "value": "Ventricular Assist Device (VAD), left",
+          "text": "Ventricular Assist Device (VAD), left",
+          "default": false
+        },
+        {
+          "value": "Ventricular Assist Device (VAD), right",
+          "text": "Ventricular Assist Device (VAD), right",
+          "default": false
+        },
+        {
+          "value": "Other Cardiac Intervention (not listed)",
+          "text": "Other Cardiac Intervention (not listed)",
+          "default": false
+        }
+      ],
+      "enum": [
+        "Ablation, catheter, atrial arrhythmia",
+        "Ablation, catheter, other or unknown",
+        "Ablation, catheter, ventricular arrhythmia",
+        "Ablation, surgical, atrial arrhythmia",
+        "Ablation, surgical, other or unknown",
+        "Aneurysmectomy, LV",
+        "Aortic procedure, arch",
+        "Aortic procedure, ascending",
+        "Aortic procedure, descending",
+        "Aortic procedure, root",
+        "Aortic procedure, thoracoabdominal",
+        "Aortic Procedure, TEVAR",
+        "Aortic root procedure, valve sparing",
+        "Atrial appendage obliteration, left, surgical",
+        "Atrial appendage obliteration, left, transcatheter",
+        "Cardiac Tumor",
+        "Cardioversion(s)",
+        "Closure device, atrial septal defect",
+        "Closure device, ventricular septal defect",
+        "Congenital cardiac repair, surgical",
+        "ECMO",
+        "Myectomy (not congenital)",
+        "Permanent Pacemaker",
+        "Pericardial window / Pericardiocentesis",
+        "Pericardiectomy",
+        "Implantable Cardioverter Defibrillator (ICD) with or without pacer",
+        "Pulmonary Thromboembolectomy",
+        "Total Artificial Heart (TAH)",
+        "Transmyocardial Laser Revascularization (TMR)",
+        "Transplant heart & lung",
+        "Transplant, heart",
+        "Transplant, lung(s)",
+        "Ventricular Assist Device (VAD), BiVAD",
+        "Ventricular Assist Device (VAD), left",
+        "Ventricular Assist Device (VAD), right",
+        "Other Cardiac Intervention (not listed)"
+      ]
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "vstrpr",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "medacei48",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "medgp",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "medinotr",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "medster",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "medadp5days",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "fhcad",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "hypertn",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "liverdis",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "mediastrad",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "unrespstat",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "dialysis",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "cancer",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "syncope",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "immsupp",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "pneumonia",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "slpapn",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "hmo2",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "pvd",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "cvdstenrt",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "cvdpcarsurg",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "cvdstenlft",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "carshock",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "resusc",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "stenleftmain",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "laddiststenpercent",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "vdstena",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "vdstenm",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": null,
+      "value": null,
+      "id": "vdaoprimet",
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": "prcvint",
+      "value": "CABG",
+      "id": null,
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": "prcvint",
+      "value": "Valve",
+      "id": null,
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": "prcvint",
+      "value": "PCI",
+      "id": null,
+      "label": null,
+      "required": false,
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "name": "prcvint",
+      "value": "Other",
+      "id": null,
+      "label": null,
+      "required": false,
+      "default": false
+    }
+  ],
+  "categories": {}
+}
