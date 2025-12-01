@@ -1,0 +1,37 @@
+{
+  "name": "kuzushi-widget-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-tenant embeddable AI assistant widget platform with text chat (WebSocket) and real-time voice (WebRTC)",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "backend": "cd packages/backend && pnpm run start:dev",
+    "widget:dev": "cd packages/widget && pnpm run dev",
+    "example": "cd examples/host-site && pnpm run dev",
+    "db:generate": "cd packages/backend && pnpm run db:generate",
+    "db:migrate": "cd packages/backend && pnpm run db:migrate",
+    "db:studio": "cd packages/backend && pnpm run db:studio"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^2.0.0",
+    "@types/node": "^20.11.0",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.15.0"
+  }
+}
