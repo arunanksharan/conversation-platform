@@ -1,0 +1,192 @@
+// Prisma schema for multi-tenant Kuzushi platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================================
+// TENANT & APP MANAGEMENT
+// ============================================================================
+
+model Tenant {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  apps App[]
+
+  @@index([slug])
+  @@map("tenants")
+}
+
+model App {
+  id       String @id @default(uuid()) @db.Uuid
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenantId String @db.Uuid
+
+  name      String
+  slug      String  @unique
+  projectId String  @unique // Public ID used in widget embedding
+  apiKey    String  @unique // Secret key for server-to-server auth
+  isActive  Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  configs        AppConfig[]
+  promptProfiles PromptProfile[]
+  sessions       WidgetSession[]
+
+  @@index([projectId])
+  @@index([tenantId, isActive])
+  @@map("apps")
+}
+
+model AppConfig {
+  id    String @id @default(uuid()) @db.Uuid
+  app   App    @relation(fields: [appId], references: [id], onDelete: Cascade)
+  appId String @db.Uuid
+
+  version  Int
+  isActive Boolean @default(true)
+
+  // JSON fields for flexible configuration
+  features    Json // { textChat: true, voice: true, ... }
+  uiTheme     Json // { primaryColor, radius, ... }
+  llmConfig   Json // { provider, model, temperature, ... }
+  voiceConfig Json // { provider, signalingPath, iceServers, ... }
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([appId, version])
+  @@index([appId, isActive])
+  @@map("app_configs")
+}
+
+model PromptProfile {
+  id    String @id @default(uuid()) @db.Uuid
+  app   App    @relation(fields: [appId], references: [id], onDelete: Cascade)
+  appId String @db.Uuid
+
+  name      String
+  kind      PromptKind
+  content   String     @db.Text
+  variables Json? // Metadata for template variables
+
+  isDefault Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([appId, kind])
+  @@index([appId, isDefault])
+  @@map("prompt_profiles")
+}
+
+enum PromptKind {
+  SYSTEM
+  PRE_MESSAGE
+  POST_MESSAGE
+  TOOL_DESCRIPTION
+}
+
+// ============================================================================
+// RUNTIME SESSION MANAGEMENT
+// ============================================================================
+
+model WidgetSession {
+  id    String @id @default(uuid()) @db.Uuid
+  app   App    @relation(fields: [appId], references: [id], onDelete: Cascade)
+  appId String @db.Uuid
+
+  configVersion Int // Which AppConfig version was used
+
+  // Client identification
+  externalUserId   String? // Host's user ID if provided
+  widgetInstanceId String? // Random client-generated ID
+
+  // Request metadata
+  hostOrigin String?
+  hostPath   String?
+  userAgent  String?
+  locale     String?
+
+  status SessionStatus @default(ACTIVE)
+
+  createdAt  DateTime  @default(now())
+  lastSeenAt DateTime  @default(now())
+  endedAt    DateTime?
+  metadata   Json?
+
+  chatMessages  ChatMessage[]
+  voiceSessions VoiceSession[]
+
+  @@index([appId, status])
+  @@index([createdAt])
+  @@index([externalUserId])
+  @@map("widget_sessions")
+}
+
+enum SessionStatus {
+  ACTIVE
+  ENDED
+  ERROR
+}
+
+model ChatMessage {
+  id        String        @id @default(uuid()) @db.Uuid
+  session   WidgetSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId String        @db.Uuid
+
+  role    ChatRole
+  content String   @db.Text
+
+  // LLM tracking
+  llmRequestId String?
+  metadata     Json? // tool calls, latency, model used, etc.
+
+  createdAt DateTime @default(now())
+
+  @@index([sessionId, createdAt])
+  @@map("chat_messages")
+}
+
+enum ChatRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+model VoiceSession {
+  id              String        @id @default(uuid()) @db.Uuid
+  widgetSession   WidgetSession @relation(fields: [widgetSessionId], references: [id], onDelete: Cascade)
+  widgetSessionId String        @db.Uuid
+
+  rtcRoomId          String? // External room ID (e.g., LiveKit, Daily)
+  signalingChannelId String?
+  status             VoiceStatus @default(ACTIVE)
+
+  startedAt DateTime  @default(now())
+  endedAt   DateTime?
+  stats     Json? // Call duration, quality metrics, etc.
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([widgetSessionId])
+  @@index([status])
+  @@map("voice_sessions")
+}
+
+enum VoiceStatus {
+  ACTIVE
+  ENDED
+  ERROR
+}

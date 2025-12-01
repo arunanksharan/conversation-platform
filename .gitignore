@@ -58,6 +58,9 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 
+# Backend static (build artifacts copied from widget-loader)
+packages/backend/static/
+
 # Misc
 .cache/
 temp/
