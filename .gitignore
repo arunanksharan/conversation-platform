@@ -41,8 +41,8 @@ out/
 *.env
 
 # Logs
-logs/
-*.log
+logs/*.log
+!logs/.gitkeep
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -63,6 +63,9 @@ packages/backend/static/
 
 # Host site build artifacts (copied during predev)
 examples/host-site/*.js
+
+# Requirements with credentials (internal use only)
+docs/requirements/
 
 # Misc
 .cache/
