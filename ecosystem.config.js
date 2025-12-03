@@ -53,13 +53,13 @@ module.exports = {
       // Environment - Development
       env: {
         NODE_ENV: 'development',
-        PORT: 3001,
+        PORT: 3012,
       },
 
       // Environment - Production
       env_production: {
         NODE_ENV: 'production',
-        PORT: 4002,
+        PORT: 4012,
       },
 
       // Load .env file from backend directory
