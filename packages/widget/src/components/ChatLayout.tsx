@@ -6,6 +6,7 @@ import { Avatar } from '../ui/components/Avatar';
 import { Badge } from '../ui/components/Badge';
 import { useChatStore } from '../state/chatStore';
 import { useChatWebSocket } from '../hooks/useChatWebSocket';
+import { ExtractionPanel } from './ExtractionPanel';
 import type { WidgetConfig } from '../types';
 
 interface ChatLayoutProps {
@@ -162,6 +163,13 @@ export function ChatLayout({ config }: ChatLayoutProps) {
 
         <div ref={messagesEndRef} />
       </div>
+
+      {/* Extraction Panel - shown when extraction is enabled */}
+      {config.features?.extraction && (
+        <div className="px-4 py-2 border-t border-border bg-muted/30">
+          <ExtractionPanel compact showConfidence />
+        </div>
+      )}
 
       {/* Input */}
       <div className="p-4 border-t border-border bg-background">

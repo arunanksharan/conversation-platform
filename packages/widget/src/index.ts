@@ -16,4 +16,10 @@ export type {
   WSServerMessage,
   VoiceClientMessage,
   VoiceServerMessage,
+  ExtractedField,
+  ExtractionResult,
 } from './types';
+
+// Extraction components and hooks
+export { ExtractionPanel, ExtractionBadges } from './components/ExtractionPanel';
+export { useExtractionStore } from './state/extractionStore';

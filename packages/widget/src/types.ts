@@ -50,6 +50,7 @@ export interface WidgetConfig {
   features?: {
     textChat?: boolean;
     voice?: boolean;
+    extraction?: boolean;
   };
   /** API base URL */
   apiBaseUrl?: string;
@@ -83,6 +84,26 @@ export type WSClientMessage =
   | { type: 'end_session' };
 
 /**
+ * Extracted field from medical conversation
+ */
+export interface ExtractedField {
+  fieldName: string;
+  value: unknown;
+  confidence: number;
+}
+
+/**
+ * Extraction result from backend
+ */
+export interface ExtractionResult {
+  extractionId: string;
+  fields: ExtractedField[];
+  status: 'partial' | 'complete';
+  confidence: number;
+  timestamp: string;
+}
+
+/**
  * WebSocket message types - Server to Client
  */
 export type WSServerMessage =
@@ -90,7 +111,14 @@ export type WSServerMessage =
   | { type: 'message'; messageId: string; role: 'assistant' | 'system'; content: string; metadata?: Record<string, unknown> }
   | { type: 'token'; messageId: string; delta: string }
   | { type: 'status'; status: string }
-  | { type: 'error'; errorCode: string; message: string };
+  | { type: 'error'; errorCode: string; message: string }
+  | {
+      type: 'extraction_update';
+      extractionId: string;
+      fields: ExtractedField[];
+      extractionStatus: 'partial' | 'complete';
+      overallConfidence: number;
+    };
 
 /**
  * Voice signaling message types - Client to Server

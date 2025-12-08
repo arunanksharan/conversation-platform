@@ -1,7 +1,8 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useChatStore } from '../state/chatStore';
-import type { WSClientMessage, WSServerMessage, ChatMessage } from '../types';
+import { useExtractionStore } from '../state/extractionStore';
+import type { WSClientMessage, WSServerMessage, ChatMessage, ExtractionResult } from '../types';
 
 interface UseChatWebSocketOptions {
   wsUrl: string;
@@ -90,6 +91,19 @@ export function useChatWebSocket({
             case 'error':
               console.error('[ChatWS] Error:', message.message);
               setError(message.message);
+              break;
+
+            case 'extraction_update':
+              // Handle medical field extraction updates
+              console.log('[ChatWS] Extraction update:', message.extractionId, message.fields.length, 'fields');
+              const extractionResult: ExtractionResult = {
+                extractionId: message.extractionId,
+                fields: message.fields,
+                status: message.extractionStatus,
+                confidence: message.overallConfidence,
+                timestamp: new Date().toISOString(),
+              };
+              useExtractionStore.getState().addExtraction(extractionResult);
               break;
 
             default:
