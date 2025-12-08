@@ -1,5 +1,31 @@
-import { IsString, IsOptional, IsUrl } from 'class-validator';
+import { IsString, IsOptional, IsUrl, IsObject } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+
+/**
+ * Metadata for medical extraction configuration
+ */
+export class ExtractionMetadataDto {
+  @ApiPropertyOptional({
+    description: 'JSON Schema for extracting form fields',
+    example: { type: 'object', properties: { age: { type: 'integer' } } },
+  })
+  @IsOptional()
+  @IsObject()
+  formSchema?: Record<string, unknown>;
+
+  @ApiPropertyOptional({
+    description: 'Type of form for extraction (e.g., "sts", "euroscore")',
+    example: 'sts',
+  })
+  @IsOptional()
+  @IsString()
+  formType?: string;
+
+  @ApiPropertyOptional({ description: 'User ID from the host application' })
+  @IsOptional()
+  @IsString()
+  userId?: string;
+}
 
 export class InitSessionDto {
   @ApiProperty({ description: 'The project ID of the app', example: 'demo-support-widget' })
@@ -34,4 +60,12 @@ export class InitSessionDto {
   @IsOptional()
   @IsString()
   locale?: string;
+
+  @ApiPropertyOptional({
+    description: 'Additional metadata including medical extraction configuration',
+    type: ExtractionMetadataDto,
+  })
+  @IsOptional()
+  @IsObject()
+  metadata?: ExtractionMetadataDto;
 }

@@ -21,6 +21,12 @@ interface WSClientMessage {
   metadata?: Record<string, unknown>;
 }
 
+interface ExtractedFieldMessage {
+  fieldName: string;
+  value: unknown;
+  confidence: number;
+}
+
 interface WSServerMessage {
   type:
     | 'session_ack'
@@ -38,6 +44,11 @@ interface WSServerMessage {
   errorCode?: string;
   message?: string;
   metadata?: Record<string, unknown>;
+  // Extraction-specific fields
+  extractionId?: string;
+  fields?: ExtractedFieldMessage[];
+  extractionStatus?: 'partial' | 'complete';
+  overallConfidence?: number;
 }
 
 @WebSocketGateway({
@@ -157,6 +168,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
           });
         },
       );
+
+      // Run extraction if enabled for this session
+      if (this.chatService.hasExtractionEnabled(session)) {
+        this.runExtractionAsync(client, session, data.content || '');
+      }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       const errorStack = error instanceof Error ? error.stack : undefined;
@@ -166,6 +182,44 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         'MESSAGE_FAILED',
         'Failed to process message',
       );
+    }
+  }
+
+  /**
+   * Run extraction asynchronously and emit results
+   * This runs in background so it doesn't block the chat response
+   */
+  private async runExtractionAsync(
+    client: Socket,
+    session: any,
+    userMessage: string,
+  ) {
+    try {
+      const extractionResult = await this.chatService.extractMedicalFields(
+        session,
+        userMessage,
+      );
+
+      if (extractionResult && extractionResult.fields.length > 0) {
+        this.logger.log(
+          `Sending extraction_update with ${extractionResult.fields.length} fields`,
+        );
+
+        this.sendMessage(client, {
+          type: 'extraction_update',
+          extractionId: extractionResult.extractionId,
+          fields: extractionResult.fields.map((f) => ({
+            fieldName: f.fieldName,
+            value: f.value,
+            confidence: f.confidence,
+          })),
+          extractionStatus: extractionResult.status,
+          overallConfidence: extractionResult.confidence,
+        });
+      }
+    } catch (error) {
+      this.logger.error('Extraction failed (non-blocking):', error);
+      // Don't send error to client - extraction is optional enhancement
     }
   }
 

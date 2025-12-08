@@ -60,7 +60,15 @@ export class WidgetSessionService {
     const uiTheme = configData.uiTheme as UiThemeConfig;
     const voiceConfig = configData.voiceConfig as VoiceConfig;
 
-    // 2. Create widget session
+    // 2. Create widget session with metadata (including extraction config)
+    const sessionMetadata = dto.metadata
+      ? {
+          formSchema: dto.metadata.formSchema as Record<string, any>,
+          formType: dto.metadata.formType,
+          userId: dto.metadata.userId,
+        }
+      : undefined;
+
     const session = await this.prisma.widgetSession.create({
       data: {
         appId: app.id,
@@ -72,6 +80,7 @@ export class WidgetSessionService {
         userAgent: dto.userAgent,
         locale: dto.locale,
         status: 'ACTIVE',
+        metadata: sessionMetadata as any,
       },
     });
 
@@ -95,24 +104,41 @@ export class WidgetSessionService {
       },
     });
 
+    // Build UI hints based on whether extraction is enabled
+    const extractionEnabled = !!(sessionMetadata?.formSchema && sessionMetadata?.formType);
+    const formTypeLabel = sessionMetadata?.formType?.toUpperCase() || 'Medical';
+
     // Build response
     const response: InitSessionResponseDto = {
       sessionId: session.id,
       configVersion: config.version,
-      features,
+      features: {
+        ...features,
+        extraction: extractionEnabled,
+      },
       theme: uiTheme,
       chat: {
         wsUrl: chatWsUrl,
       },
       uiHints: {
-        welcomeMessage: welcomePrompt?.content || 'Welcome! How can I assist you today?',
-        widgetTitle: app.name || 'AI Assistant',
-        inputPlaceholder: 'Type your message...',
+        welcomeMessage: extractionEnabled
+          ? `I'm here to help you fill out the ${formTypeLabel} risk calculator. Just describe the patient's clinical information, and I'll extract the relevant fields.`
+          : welcomePrompt?.content || 'Welcome! How can I assist you today?',
+        widgetTitle: extractionEnabled
+          ? `${formTypeLabel} Assistant`
+          : app.name || 'AI Assistant',
+        inputPlaceholder: extractionEnabled
+          ? "Describe the patient's clinical information..."
+          : 'Type your message...',
         sendButtonText: 'Send',
         voiceButtonText: '🎙️ Start Voice',
         endCallButtonText: '📞 End Call',
-        emptyStateMessage: '👋 Hi there!',
-        emptyStateSubtitle: 'How can I help you today?',
+        emptyStateMessage: extractionEnabled
+          ? `${formTypeLabel} Medical Assistant`
+          : '👋 Hi there!',
+        emptyStateSubtitle: extractionEnabled
+          ? `Ready to help with ${formTypeLabel} calculations`
+          : 'How can I help you today?',
         poweredByText: 'Powered by Kuzushi',
       },
     };
