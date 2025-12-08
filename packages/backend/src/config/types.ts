@@ -46,6 +46,7 @@ export interface FeaturesConfig {
   voice: boolean;
   allowFileUpload?: boolean;
   maxConcurrentSessions?: number;
+  extraction?: boolean; // Medical field extraction feature
 }
 
 // ============================================================================
