@@ -73,9 +73,28 @@ export class ExtractionService {
     for (const [fieldName, fieldDef] of Object.entries(
       formSchema.properties || {},
     )) {
-      const prop: Record<string, unknown> = {
-        type: this.mapJsonSchemaType(fieldDef.type),
-      };
+      let prop: Record<string, unknown>;
+
+      // Handle array types by unwrapping items (for STS-style schemas)
+      if (fieldDef.type === 'array' && (fieldDef as any).items) {
+        const items = (fieldDef as any).items;
+        prop = {
+          type: items.type === 'string' ? 'string' : this.mapJsonSchemaType(items.type || 'string'),
+        };
+        // For arrays with enum items, use the enum from items
+        if (items.enum && Array.isArray(items.enum)) {
+          prop.enum = items.enum;
+        }
+      } else {
+        // Regular non-array field
+        prop = {
+          type: this.mapJsonSchemaType(fieldDef.type),
+        };
+        // Add enum values for non-array fields
+        if (fieldDef.enum) {
+          prop.enum = fieldDef.enum;
+        }
+      }
 
       // Add description with medical terms for better extraction
       const descriptions: string[] = [];
@@ -88,10 +107,7 @@ export class ExtractionService {
         prop.description = descriptions.join('. ');
       }
 
-      // Add enum values
-      if (fieldDef.enum) {
-        prop.enum = fieldDef.enum;
-      }
+
 
       // Add numeric constraints
       if (fieldDef.minimum !== undefined) {
