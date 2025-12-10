@@ -12,9 +12,13 @@ const path = require('path');
  *   pm2 start ecosystem.config.js    # Start all apps
  *   pm2 stop all                     # Stop all apps
  *   pm2 restart all                  # Restart all apps
+ *   pm2 reload all                   # Zero-downtime reload
  *   pm2 logs                         # View logs
+ *   pm2 logs healthcare-backend      # View specific app logs
  *   pm2 monit                        # Monitor dashboard
  *   pm2 delete all                   # Remove all apps from PM2
+ *   pm2 save                         # Save current process list
+ *   pm2 startup                      # Generate startup script
  */
 
 module.exports = {
@@ -27,15 +31,15 @@ module.exports = {
       script: 'dist/main.js',
       cwd: path.join(__dirname, 'packages', 'backend'),
 
-      // Interpreter (use node for NestJS)
+      // Node.js configuration
       interpreter: 'node',
-      interpreter_args: '--max-old-space-size=1024',
+      node_args: '--max-old-space-size=1024',
 
       // Process management
-      instances: 1, // Use 'max' for cluster mode (multiple CPUs)
-      exec_mode: 'fork', // Use 'cluster' for load balancing
+      instances: 1,
+      exec_mode: 'fork',
       autorestart: true,
-      watch: false, // Set to true for dev auto-reload (not recommended for production)
+      watch: false,
       max_memory_restart: '500M',
 
       // Graceful shutdown
@@ -47,57 +51,45 @@ module.exports = {
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
       error_file: path.join(__dirname, 'logs', 'backend-error.log'),
       out_file: path.join(__dirname, 'logs', 'backend-out.log'),
-      merge_logs: true,
-      log_type: 'json',
+      combine_logs: true,
 
-      // Environment - Development
+      // Environment - Development (local)
       env: {
         NODE_ENV: 'development',
-        PORT: 3012,
+        PORT: 3001,
       },
 
-      // Environment - Production
+      // Environment - Production (server)
       env_production: {
         NODE_ENV: 'production',
-        PORT: 4012,
+        PORT: 4001,
       },
-
-      // Load .env file from backend directory
-      // Note: NestJS ConfigModule loads .env automatically, but this ensures PM2 has access too
-      env_file: path.join(__dirname, 'packages', 'backend', '.env'),
     },
-
-    // ============================================
-    // Add more apps here as needed
-    // ============================================
-    // Example: If you add a Python voice service later
-    // {
-    //   name: 'healthcare-voice',
-    //   script: 'python',
-    //   args: '-m uvicorn main:app --host 0.0.0.0 --port 5001',
-    //   cwd: path.join(__dirname, 'packages', 'voice-service'),
-    //   interpreter: '/usr/bin/python3',
-    //   env_production: {
-    //     NODE_ENV: 'production',
-    //   },
-    // },
   ],
 
   // ============================================
-  // Deployment Configuration (optional)
+  // Deployment Configuration
   // ============================================
   deploy: {
     production: {
+      // Server details
       user: 'root',
-      host: '156.67.105.97',
+      host: '82.208.21.17',
       ref: 'origin/main',
-      repo: 'git@github.com:arunanksharan/conversation-platform.git',
-      path: '/root/healthcare/conversation-platform',
+      repo: 'git@github.com:arunanksharan/healthcare-conversation-platform.git',
+      path: '/opt/healthcare-conversation-platform',
+
+      // SSH options
       ssh_options: ['StrictHostKeyChecking=no'],
-      'pre-deploy-local': '',
+
+      // Pre-deploy (runs locally before deployment)
+      'pre-deploy-local': 'echo "Starting deployment to production..."',
+
+      // Post-deploy (runs on server after git pull)
       'post-deploy':
-        'pnpm install && pnpm build && pm2 reload ecosystem.config.js --env production',
-      'pre-setup': '',
+        'pnpm install --frozen-lockfile && pnpm build && pm2 reload ecosystem.config.js --env production && pm2 save',
+
+      // Environment
       env: {
         NODE_ENV: 'production',
       },
