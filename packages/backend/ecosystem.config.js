@@ -40,7 +40,7 @@
 module.exports = {
   apps: [
     {
-      name: 'healthcare-backend',
+      name: 'conversation-backend',
 
       // Run the compiled JavaScript build
       script: 'dist/main.js',
