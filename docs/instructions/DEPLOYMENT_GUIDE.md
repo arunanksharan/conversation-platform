@@ -61,7 +61,7 @@ pm2 save
 │                           │                                 │
 │                           ▼                                 │
 │   ┌─────────────────────────────────────────────────────┐  │
-│   │              PM2 → healthcare-backend                │  │
+│   │              PM2 → conversation-backend                │  │
 │   │              NestJS on Port 4001                     │  │
 │   └─────────────────────────────────────────────────────┘  │
 │                           │                                 │
@@ -203,7 +203,7 @@ pm2 status
 ┌────┬─────────────────────┬────────┬────────┬──────┬────────┐
 │ id │ name                │ mode   │ status │ cpu  │ memory │
 ├────┼─────────────────────┼────────┼────────┼──────┼────────┤
-│ 0  │ healthcare-backend  │ fork   │ online │ 0%   │ 85mb   │
+│ 0  │ conversation-backend  │ fork   │ online │ 0%   │ 85mb   │
 └────┴─────────────────────┴────────┴────────┴──────┴────────┘
 ```
 
@@ -226,11 +226,11 @@ curl http://localhost:4001/api/health
 | Command | Description |
 |---------|-------------|
 | `pm2 status` | Show all processes |
-| `pm2 logs healthcare-backend` | View logs |
-| `pm2 logs healthcare-backend --lines 100` | Last 100 lines |
-| `pm2 restart healthcare-backend` | Restart |
-| `pm2 stop healthcare-backend` | Stop |
-| `pm2 delete healthcare-backend` | Remove from PM2 |
+| `pm2 logs conversation-backend` | View logs |
+| `pm2 logs conversation-backend --lines 100` | Last 100 lines |
+| `pm2 restart conversation-backend` | Restart |
+| `pm2 stop conversation-backend` | Stop |
+| `pm2 delete conversation-backend` | Remove from PM2 |
 | `pm2 monit` | Live monitoring |
 
 ---
@@ -386,14 +386,14 @@ cd packages/backend
 pnpm build
 
 # Restart
-pm2 restart healthcare-backend
+pm2 restart conversation-backend
 ```
 
 ### 9.2 View Logs
 
 ```bash
 # PM2 logs
-pm2 logs healthcare-backend
+pm2 logs conversation-backend
 
 # Nginx logs
 sudo tail -f /var/log/nginx/api-conversation.error.log
@@ -413,14 +413,14 @@ docker exec hal9000-postgres pg_dump -U conversation_user conversationdb > backu
 
 ```bash
 # Check logs
-pm2 logs healthcare-backend --lines 50
+pm2 logs conversation-backend --lines 50
 
 # Check if dist exists
 ls -la packages/backend/dist/main.js
 
 # Rebuild if needed
 pnpm build
-pm2 restart healthcare-backend
+pm2 restart conversation-backend
 ```
 
 ### Database Connection Failed
