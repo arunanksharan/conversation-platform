@@ -3,195 +3,137 @@
 **Server:** Ubuntu 24 (Contabo)
 **IP:** 82.208.21.17
 **Domain:** api-conversation.kuzushilabs.xyz
-**SSH:** `ssh -i contabo root@82.208.21.17`
+
+---
+
+## Quick Start (TL;DR)
+
+```bash
+# SSH to server
+ssh root@82.208.21.17
+
+# Navigate to backend
+cd /opt/healthcare-conversation-platform/packages/backend
+
+# Build and start
+pnpm build
+pm2 start ecosystem.config.js
+pm2 save
+```
 
 ---
 
 ## Table of Contents
 
-1. [Architecture Overview](#1-architecture-overview)
+1. [Architecture](#1-architecture)
 2. [Prerequisites](#2-prerequisites)
 3. [Database Setup](#3-database-setup)
-4. [Clone and Configure Repository](#4-clone-and-configure-repository)
-5. [Build and Run with PM2](#5-build-and-run-with-pm2)
+4. [Deploy Application](#4-deploy-application)
+5. [PM2 Process Manager](#5-pm2-process-manager)
 6. [Nginx Configuration](#6-nginx-configuration)
 7. [SSL with Certbot](#7-ssl-with-certbot)
 8. [Seed Database](#8-seed-database)
-9. [Verification](#9-verification)
+9. [Maintenance](#9-maintenance)
 10. [Troubleshooting](#10-troubleshooting)
-11. [Quick Reference](#11-quick-reference)
 
 ---
 
-## 1. Architecture Overview
+## 1. Architecture
 
 ```
-                                Internet
-                                    │
-                                    ▼
-                    ┌───────────────────────────────┐
-                    │   api-conversation.kuzushilabs.xyz   │
-                    └───────────────────────────────┘
-                                    │
-                                    ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                      Ubuntu 24 Server                             │
-│                                                                   │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │                    Nginx (Port 80/443)                      │  │
-│  │  api-conversation.kuzushilabs.xyz → proxy 127.0.0.1:4001   │  │
-│  │  + SSL termination                                          │  │
-│  │  + WebSocket support (/ws)                                  │  │
-│  └────────────────────────────────────────────────────────────┘  │
-│                              │                                    │
-│                              ▼                                    │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │              PM2 Process Manager                            │  │
-│  │  healthcare-backend (NestJS) → Port 4001                   │  │
-│  └────────────────────────────────────────────────────────────┘  │
-│                              │                                    │
-│              ┌───────────────┴───────────────┐                   │
-│              ▼                               ▼                    │
-│  ┌──────────────────────┐       ┌──────────────────────┐        │
-│  │   hal9000-postgres   │       │    hal9000-redis     │        │
-│  │   conversationdb     │       │       (DB 2)         │        │
-│  └──────────────────────┘       └──────────────────────┘        │
-│                                                                   │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │                  HAL9000 Infrastructure                     │  │
-│  │              /opt/system-infra                              │  │
-│  └────────────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────────────┘
+                              Internet
+                                  │
+                                  ▼
+                 ┌─────────────────────────────────┐
+                 │  api-conversation.kuzushilabs.xyz  │
+                 └─────────────────────────────────┘
+                                  │
+                                  ▼
+┌────────────────────────────────────────────────────────────┐
+│                    Ubuntu 24 Server                         │
+│                                                             │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │              Nginx (Port 80/443)                     │  │
+│   │   - SSL termination                                  │  │
+│   │   - Proxy to localhost:4001                          │  │
+│   │   - WebSocket support                                │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                           │                                 │
+│                           ▼                                 │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │              PM2 → healthcare-backend                │  │
+│   │              NestJS on Port 4001                     │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                           │                                 │
+│              ┌────────────┴────────────┐                   │
+│              ▼                         ▼                    │
+│   ┌──────────────────┐      ┌──────────────────┐          │
+│   │  hal9000-postgres │      │   hal9000-redis  │          │
+│   │  conversationdb   │      │                  │          │
+│   └──────────────────┘      └──────────────────┘          │
+└────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ## 2. Prerequisites
 
-### 2.1 Connect to Server
+### 2.1 SSH to Server
 
 ```bash
-ssh -i contabo root@82.208.21.17
+ssh root@82.208.21.17
 ```
 
-### 2.2 Verify HAL9000 is Running
+### 2.2 Verify Infrastructure
 
 ```bash
+# Check HAL9000 services
 cd /opt/system-infra
 docker compose ps
 
-# Expected output:
-# hal9000-postgres   running (healthy)
-# hal9000-redis      running (healthy)
-# hal9000-mongodb    running (healthy)
+# Expected: hal9000-postgres, hal9000-redis running
 ```
 
-If not running:
-```bash
-./scripts/up.sh
-# Select: 1,2 (postgres, redis)
-```
-
-### 2.3 Install Node.js 20+ and pnpm
+### 2.3 Required Tools
 
 ```bash
-# Check Node version
-node -v  # Should be >= 20.0.0
+# Node.js 20+
+node -v
 
-# If not installed or wrong version:
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
+# pnpm
+pnpm -v
 
-# Install pnpm
-npm install -g pnpm
-
-# Verify
-pnpm -v  # Should be >= 8.15.0
-```
-
-### 2.4 Install PM2
-
-```bash
-npm install -g pm2
-
-# Verify
+# PM2
 pm2 -v
 ```
+
+If missing, see [DEV_TOOLS_SETUP.md](../../system-infra/docs/instructions/DEV_TOOLS_SETUP.md).
 
 ---
 
 ## 3. Database Setup
 
-### 3.1 Understanding PostgreSQL Users
-
-**Important Concept:** PostgreSQL supports multiple users with different passwords:
-
-| User Type | Use Case | Security Level |
-|-----------|----------|----------------|
-| `postgres` (superuser) | Create databases, users, admin tasks | Full access - use sparingly |
-| `conversation_user` (app user) | Application database access only | Limited - recommended for apps |
-
-**Our approach:** Create a dedicated `conversation_user` that can only access `conversationdb`.
-
-### 3.2 Create Database and User
-
-**Option A: Using the provided script (recommended)**
+### 3.1 Create Database
 
 ```bash
-# On the server, navigate to the project (after cloning in step 4)
 cd /opt/healthcare-conversation-platform
-
-# Run the database setup script
-./scripts/create-postgres-db.sh --production
+./scripts/create-postgres-db.sh
 ```
 
-**Option B: Manual creation**
+This creates:
+- Database: `conversationdb`
+- User: `conversation_user`
+- Password: `Hc9Kp2mX7vR4nL6qW8sT3jF5bY1aD0eG`
+
+### 3.2 Verify
 
 ```bash
-# Connect to PostgreSQL as superuser
-docker exec -it hal9000-postgres psql -U postgres
-
-# Create database
-CREATE DATABASE conversationdb;
-
-# Create dedicated user
-CREATE USER conversation_user WITH PASSWORD 'Hc9Kp2mX7vR4nL6qW8sT3jF5bY1aD0eG';
-
-# Grant privileges
-GRANT ALL PRIVILEGES ON DATABASE conversationdb TO conversation_user;
-
-# Connect to the database and grant schema access
-\c conversationdb
-GRANT ALL ON SCHEMA public TO conversation_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO conversation_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO conversation_user;
-
-# Enable pgvector extension
-CREATE EXTENSION IF NOT EXISTS vector;
-
-# Exit
-\q
-```
-
-### 3.3 Verify Database
-
-```bash
-# Test connection with app user
 docker exec -it hal9000-postgres psql -U conversation_user -d conversationdb -c '\dt'
-
-# Should connect successfully (empty table list initially)
-```
-
-### 3.4 Connection String
-
-For production (`.env.production`):
-```
-DATABASE_URL=postgresql://conversation_user:Hc9Kp2mX7vR4nL6qW8sT3jF5bY1aD0eG@localhost:5432/conversationdb
 ```
 
 ---
 
-## 4. Clone and Configure Repository
+## 4. Deploy Application
 
 ### 4.1 Clone Repository
 
@@ -207,188 +149,160 @@ cd healthcare-conversation-platform
 pnpm install
 ```
 
-### 4.3 Configure Production Environment
+### 4.3 Configure Environment
 
 ```bash
 cd packages/backend
-
-# Copy production template (all values pre-configured)
 cp .env.production .env
 ```
 
-**Note:** The `.env.production` file already contains:
-- ✅ JWT_SECRET (64-byte secure random)
-- ✅ OPENAI_API_KEY (production key)
-- ✅ DATABASE_URL (conversation_user credentials)
-- ✅ CORS_ORIGIN (kuzushilabs.xyz domains)
+The `.env.production` is pre-configured with all values.
 
-No manual edits required.
+### 4.4 Run Migrations
 
-### 4.4 Run Database Migrations
+```bash
+pnpm db:generate
+pnpm db:migrate:deploy
+```
+
+### 4.5 Build Application
+
+```bash
+pnpm build
+```
+
+This compiles TypeScript to `dist/main.js`.
+
+---
+
+## 5. PM2 Process Manager
+
+### 5.1 File Location
+
+```
+/opt/healthcare-conversation-platform/packages/backend/ecosystem.config.js
+```
+
+### 5.2 Start Application
 
 ```bash
 cd /opt/healthcare-conversation-platform/packages/backend
 
-# Generate Prisma client
-pnpm db:generate
+# Create logs directory
+mkdir -p logs
 
-# Run migrations
-pnpm db:migrate:deploy
-```
+# Start with PM2
+pm2 start ecosystem.config.js
 
-### 4.5 Build the Application
-
-```bash
-cd /opt/healthcare-conversation-platform
-
-# Build all packages
-pnpm build
-```
-
----
-
-## 5. Build and Run with PM2
-
-### 5.1 Create Logs Directory
-
-```bash
-mkdir -p /opt/healthcare-conversation-platform/logs
-```
-
-### 5.2 Start with PM2
-
-```bash
-cd /opt/healthcare-conversation-platform
-
-# Start in production mode
-pm2 start ecosystem.config.js --env production
-
-# Check status
+# Verify
 pm2 status
-
-# View logs
-pm2 logs healthcare-backend
 ```
 
-### 5.3 Configure PM2 Startup
+**Expected output:**
+```
+┌────┬─────────────────────┬────────┬────────┬──────┬────────┐
+│ id │ name                │ mode   │ status │ cpu  │ memory │
+├────┼─────────────────────┼────────┼────────┼──────┼────────┤
+│ 0  │ healthcare-backend  │ fork   │ online │ 0%   │ 85mb   │
+└────┴─────────────────────┴────────┴────────┴──────┴────────┘
+```
+
+### 5.3 Auto-Start on Reboot
 
 ```bash
-# Generate startup script (run as root)
 pm2 startup
-
-# Save current process list
 pm2 save
 ```
 
-### 5.4 Verify Application
+### 5.4 Verify Health
 
 ```bash
-# Check health endpoint
 curl http://localhost:4001/api/health
-
-# Expected: {"status":"ok","database":"connected"}
+# Expected: {"status":"ok"}
 ```
+
+### 5.5 PM2 Commands
+
+| Command | Description |
+|---------|-------------|
+| `pm2 status` | Show all processes |
+| `pm2 logs healthcare-backend` | View logs |
+| `pm2 logs healthcare-backend --lines 100` | Last 100 lines |
+| `pm2 restart healthcare-backend` | Restart |
+| `pm2 stop healthcare-backend` | Stop |
+| `pm2 delete healthcare-backend` | Remove from PM2 |
+| `pm2 monit` | Live monitoring |
 
 ---
 
 ## 6. Nginx Configuration
 
-### 6.1 Create Server Block
+### 6.1 Create Config
 
 ```bash
 sudo nano /etc/nginx/sites-available/api-conversation.kuzushilabs.xyz
 ```
 
-**Paste this configuration:**
+Paste:
 
 ```nginx
-# Healthcare Conversation Platform API
-# api-conversation.kuzushilabs.xyz
-
 server {
     listen 80;
     listen [::]:80;
     server_name api-conversation.kuzushilabs.xyz;
 
+    # Logging
+    access_log /var/log/nginx/api-conversation.access.log;
+    error_log /var/log/nginx/api-conversation.error.log;
+
     # Security headers
     add_header X-Content-Type-Options nosniff always;
     add_header X-Frame-Options DENY always;
-    add_header X-XSS-Protection "1; mode=block" always;
-    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 
-    # Logging
-    access_log /var/log/nginx/api-conversation.kuzushilabs.xyz.access.log;
-    error_log /var/log/nginx/api-conversation.kuzushilabs.xyz.error.log;
-
-    # API endpoints
+    # API and static files
     location / {
         proxy_pass http://127.0.0.1:4001;
         proxy_http_version 1.1;
-
-        # Standard proxy headers
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-
-        # Timeouts
         proxy_connect_timeout 60s;
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
-
-        # Request body size (for file uploads if needed)
         client_max_body_size 50M;
     }
 
-    # WebSocket endpoints
+    # WebSocket
     location /ws {
         proxy_pass http://127.0.0.1:4001;
         proxy_http_version 1.1;
-
-        # WebSocket upgrade headers
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-
-        # Proxy headers
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-
-        # Long timeouts for WebSocket connections
         proxy_connect_timeout 7d;
         proxy_send_timeout 7d;
         proxy_read_timeout 7d;
-
-        # Disable buffering for real-time
         proxy_buffering off;
     }
 
-    # Socket.IO specific path (if different)
+    # Socket.IO
     location /socket.io {
         proxy_pass http://127.0.0.1:4001;
         proxy_http_version 1.1;
-
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-
         proxy_connect_timeout 7d;
         proxy_send_timeout 7d;
         proxy_read_timeout 7d;
         proxy_buffering off;
-    }
-
-    # Health check endpoint
-    location /api/health {
-        proxy_pass http://127.0.0.1:4001/api/health;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        access_log off;
     }
 }
 ```
@@ -397,11 +311,7 @@ server {
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/api-conversation.kuzushilabs.xyz /etc/nginx/sites-enabled/
-
-# Test configuration
 sudo nginx -t
-
-# Reload Nginx
 sudo systemctl reload nginx
 ```
 
@@ -409,40 +319,30 @@ sudo systemctl reload nginx
 
 ## 7. SSL with Certbot
 
-### 7.1 Ensure DNS is Configured
+### 7.1 DNS Setup
 
-Add an A record in your DNS provider:
+Add A record:
 ```
 Type: A
 Name: api-conversation
 Value: 82.208.21.17
-TTL: 300
 ```
 
 Verify:
 ```bash
 dig api-conversation.kuzushilabs.xyz +short
-# Should return: 82.208.21.17
 ```
 
-### 7.2 Obtain SSL Certificate
+### 7.2 Get Certificate
 
 ```bash
 sudo certbot --nginx -d api-conversation.kuzushilabs.xyz
 ```
 
-Follow prompts:
-1. Enter email for notifications
-2. Accept Terms of Service
-3. Choose to redirect HTTP to HTTPS (recommended)
-
-### 7.3 Verify SSL
+### 7.3 Verify
 
 ```bash
-# Test HTTPS
-curl -I https://api-conversation.kuzushilabs.xyz/api/health
-
-# Test auto-renewal
+curl https://api-conversation.kuzushilabs.xyz/api/health
 sudo certbot renew --dry-run
 ```
 
@@ -450,146 +350,111 @@ sudo certbot renew --dry-run
 
 ## 8. Seed Database
 
-### 8.1 Run Default Seed
-
 ```bash
 cd /opt/healthcare-conversation-platform/packages/backend
 
-# Run default seed (creates demo tenants/apps)
+# Default seed
 pnpm db:seed
-```
 
-### 8.2 Run Scoring Tool Seed
-
-```bash
-# Run scoring-tool specific seed
+# Scoring tool seed
 npx ts-node prisma/seed-scoring-tool.ts
 ```
 
-### 8.3 Verify Seed Data
-
+Verify:
 ```bash
-# Connect to database
-docker exec -it hal9000-postgres psql -U conversation_user -d conversationdb
-
-# Check tenants
-SELECT name, slug FROM tenants;
-
-# Check apps
-SELECT name, "projectId", "isActive" FROM apps;
-
-# Exit
-\q
+docker exec -it hal9000-postgres psql -U conversation_user -d conversationdb \
+  -c "SELECT name, slug FROM tenants;"
 ```
-
-**Expected output:**
-
-| Tenant | Apps |
-|--------|------|
-| Kuzushi Labs Healthcare | patient-scoring-tool |
-| Demo Healthcare Clinic | mental-health-screening, chronic-pain-assessment |
 
 ---
 
-## 9. Verification
+## 9. Maintenance
 
-### 9.1 Check All Services
-
-```bash
-# PM2 status
-pm2 status
-
-# Nginx status
-sudo systemctl status nginx
-
-# HAL9000 services
-cd /opt/system-infra && docker compose ps
-```
-
-### 9.2 Test Endpoints
+### 9.1 Deploy Updates
 
 ```bash
-# Health check
-curl https://api-conversation.kuzushilabs.xyz/api/health
+cd /opt/healthcare-conversation-platform
 
-# API documentation (if enabled)
-echo "Visit: https://api-conversation.kuzushilabs.xyz/api/v1/docs"
+# Pull changes
+git pull origin main
 
-# List tenants
-curl https://api-conversation.kuzushilabs.xyz/api/v1/tenants
+# Install dependencies
+pnpm install
+
+# Build
+cd packages/backend
+pnpm build
+
+# Restart
+pm2 restart healthcare-backend
 ```
 
-### 9.3 Test WebSocket Connection
+### 9.2 View Logs
 
-```javascript
-// Run in browser console or Node.js
-const socket = io('https://api-conversation.kuzushilabs.xyz', {
-  path: '/ws/chat',
-  transports: ['websocket']
-});
+```bash
+# PM2 logs
+pm2 logs healthcare-backend
 
-socket.on('connect', () => console.log('Connected!'));
-socket.on('error', (err) => console.error('Error:', err));
+# Nginx logs
+sudo tail -f /var/log/nginx/api-conversation.error.log
+```
+
+### 9.3 Database Backup
+
+```bash
+docker exec hal9000-postgres pg_dump -U conversation_user conversationdb > backup.sql
 ```
 
 ---
 
 ## 10. Troubleshooting
 
-### PM2 Issues
+### App Not Starting
 
 ```bash
-# View logs
-pm2 logs healthcare-backend --lines 100
+# Check logs
+pm2 logs healthcare-backend --lines 50
 
-# Restart application
+# Check if dist exists
+ls -la packages/backend/dist/main.js
+
+# Rebuild if needed
+pnpm build
 pm2 restart healthcare-backend
-
-# Check memory usage
-pm2 monit
 ```
 
-### Database Connection Issues
+### Database Connection Failed
 
 ```bash
-# Test database connection
+# Test connection
 docker exec -it hal9000-postgres psql -U conversation_user -d conversationdb -c 'SELECT 1'
 
-# Check if PostgreSQL is running
+# Check container
 docker ps | grep hal9000-postgres
-
-# View PostgreSQL logs
-docker logs hal9000-postgres --tail 50
 ```
 
-### Nginx Issues
+### Nginx 502 Bad Gateway
 
 ```bash
-# Test configuration
+# Is app running?
+pm2 status
+curl http://localhost:4001/api/health
+
+# Check nginx config
 sudo nginx -t
-
-# View error logs
-sudo tail -f /var/log/nginx/api-conversation.kuzushilabs.xyz.error.log
-
-# Reload after changes
-sudo systemctl reload nginx
 ```
 
 ### WebSocket Not Connecting
 
-1. Check Nginx has WebSocket headers configured
-2. Verify `proxy_read_timeout` is long enough
-3. Check CORS settings in `.env`
-
 ```bash
-# Test WebSocket path
+# Test WebSocket endpoint
 curl -I -H "Upgrade: websocket" -H "Connection: upgrade" \
-  https://api-conversation.kuzushilabs.xyz/ws/chat
+  https://api-conversation.kuzushilabs.xyz/ws
 ```
 
 ---
 
-## 11. Quick Reference
+## Quick Reference
 
 ### File Locations
 
@@ -597,115 +462,28 @@ curl -I -H "Upgrade: websocket" -H "Connection: upgrade" \
 |------|------|
 | Application | `/opt/healthcare-conversation-platform` |
 | Backend | `/opt/healthcare-conversation-platform/packages/backend` |
-| Environment | `/opt/healthcare-conversation-platform/packages/backend/.env` |
-| PM2 Config | `/opt/healthcare-conversation-platform/ecosystem.config.js` |
-| PM2 Logs | `/opt/healthcare-conversation-platform/logs/` |
-| Nginx Config | `/etc/nginx/sites-available/api-conversation.kuzushilabs.xyz` |
-| Nginx Logs | `/var/log/nginx/api-conversation.kuzushilabs.xyz.*` |
-| SSL Certs | `/etc/letsencrypt/live/api-conversation.kuzushilabs.xyz/` |
-| HAL9000 | `/opt/system-infra` |
+| PM2 Config | `packages/backend/ecosystem.config.js` |
+| Environment | `packages/backend/.env` |
+| Logs | `packages/backend/logs/` |
+| Nginx | `/etc/nginx/sites-available/api-conversation.kuzushilabs.xyz` |
 
-### Common Commands
+### Credentials
 
-| Task | Command |
-|------|---------|
-| Start app | `pm2 start ecosystem.config.js --env production` |
-| Stop app | `pm2 stop healthcare-backend` |
-| Restart app | `pm2 restart healthcare-backend` |
-| View logs | `pm2 logs healthcare-backend` |
-| Monitor | `pm2 monit` |
-| Rebuild | `cd /opt/healthcare-conversation-platform && pnpm build` |
-| Run migrations | `cd packages/backend && pnpm db:migrate:deploy` |
-| Seed database | `cd packages/backend && pnpm db:seed` |
-| Nginx reload | `sudo systemctl reload nginx` |
-| SSL renew | `sudo certbot renew` |
-
-### Database Credentials
-
-| Item | Value |
-|------|-------|
-| Host | localhost (or hal9000-postgres from Docker) |
-| Port | 5432 |
-| Database | conversationdb |
-| User | conversation_user |
-| Password | Hc9Kp2mX7vR4nL6qW8sT3jF5bY1aD0eG |
+| Service | Value |
+|---------|-------|
+| Database | `conversationdb` |
+| DB User | `conversation_user` |
+| DB Password | `Hc9Kp2mX7vR4nL6qW8sT3jF5bY1aD0eG` |
+| App Port | `4001` |
 
 ### API Endpoints
 
 | Endpoint | Description |
 |----------|-------------|
 | `GET /api/health` | Health check |
-| `GET /api/v1/docs` | Swagger documentation |
-| `GET /api/v1/tenants` | List tenants |
-| `GET /api/v1/apps` | List apps |
-| `POST /api/v1/widget/session/init` | Initialize widget session |
-| `WS /ws/chat` | Chat WebSocket |
-| `WS /ws/voice` | Voice WebSocket |
+| `GET /api/v1/docs` | Swagger docs |
+| `WS /ws` | WebSocket |
 
 ---
 
-## Appendix: Understanding PostgreSQL Multi-User Setup
-
-### Why Use Separate Users?
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   HAL9000 PostgreSQL                         │
-│                                                              │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  postgres (superuser)                                │    │
-│  │  - Can create databases                              │    │
-│  │  - Can create users                                  │    │
-│  │  - Full administrative access                        │    │
-│  │  - Password: qCKO4bLYIzhmaxQtszgsEKWtpRO9pWBS       │    │
-│  └─────────────────────────────────────────────────────┘    │
-│           │                                                  │
-│           │ Creates                                          │
-│           ▼                                                  │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  conversation_user                                   │    │
-│  │  - Can only access conversationdb                   │    │
-│  │  - Cannot create other databases                    │    │
-│  │  - Cannot create other users                        │    │
-│  │  - Password: Hc9Kp2mX7vR4nL6qW8sT3jF5bY1aD0eG      │    │
-│  │  └── conversationdb (full access)                   │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                              │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  docmost (another app user)                         │    │
-│  │  - Can only access docmost database                 │    │
-│  │  - Isolated from conversation_user                  │    │
-│  │  └── docmost (full access)                          │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                              │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  n8n (another app user)                             │    │
-│  │  - Can only access n8n database                     │    │
-│  │  └── n8n (full access)                              │    │
-│  └─────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Benefits of Separate Users
-
-1. **Security Isolation:** If one app is compromised, others are protected
-2. **Audit Trail:** Track which app made which database changes
-3. **Resource Management:** Can set per-user connection limits
-4. **Principle of Least Privilege:** Apps only access what they need
-
-### When to Use Superuser
-
-- Creating new databases
-- Creating new users
-- Running administrative tasks
-- One-time setup operations
-
-### When to Use App User
-
-- All application runtime operations
-- Migrations (with proper permissions granted)
-- Data queries and mutations
-
----
-
-*Last updated: December 2024*
+*Last updated: December 11, 2024*
